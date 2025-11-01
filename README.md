@@ -1,1 +1,1 @@
-# FuturScript
+# FutureScript
