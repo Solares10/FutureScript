@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/landingFragment">
+
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.example.futurescript.ui.landing.LandingFragment"
+        android:label="Start">
+        <action
+            android:id="@+id/action_landing_to_login"
+            app:destination="@id/loginFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.futurescript.ui.auth.LoginFragment"
+        android:label="Sign In">
+        <action
+            android:id="@+id/action_login_to_letters"
+            app:destination="@id/lettersListFragment"/>
+        <action
+            android:id="@+id/action_login_to_signup"
+            app:destination="@id/signupFragment"/>
+    </fragment>
+
+    <!-- stubs so existing files keep working; you can adjust later -->
+    <fragment
+        android:id="@+id/lettersListFragment"
+        android:name="com.example.futurescript.ui.inbox.LettersListFragment"
+        android:label="Letters"/>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.futurescript.ui.auth.SignupFragment"
+        android:label="Create Account"/>
+</navigation>

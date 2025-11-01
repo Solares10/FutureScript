@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fs_pink_bg">#F6D4DA</color>
+    <color name="fs_pink">#F1BFC8</color>
+    <color name="fs_accent">#EAA0AE</color>
+    <color name="fs_text">#FFFFFF</color>
+    <color name="fs_ink">#6F5A5E</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>

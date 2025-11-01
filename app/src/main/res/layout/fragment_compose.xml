@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/fs_pink_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Write your letter here..."
+        android:textColor="@color/fs_ink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="top"
+        android:minLines="8"
+        android:background="@android:color/transparent"
+        android:textColor="@color/fs_ink"/>
+
+    <EditText
+        android:id="@+id/dateField"
+        android:hint="DD-MM-YYYY"
+        android:focusable="false"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/fs_accent"
+        android:textColor="@color/fs_ink"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sendBtn"
+        android:text="SEND"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
