@@ -10,9 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.futurescript.R
-import com.example.futurescript.data.AppDatabase
-import com.example.futurescript.data.Letter
-import com.example.futurescript.data.LetterRepository
+import com.example.futurescript.data.database.AppDatabase
+import com.example.futurescript.data.model.Letter
+import com.example.futurescript.data.repository.LetterRepository
 import com.example.futurescript.databinding.FragmentLettersListBinding
 import com.example.futurescript.databinding.ItemLetterBinding
 import kotlinx.coroutines.flow.collectLatest

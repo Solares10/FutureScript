@@ -34,8 +34,8 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     // Lifecycle / VM
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
@@ -68,23 +68,4 @@ kapt {
         option("-target", "17")
     }
 }
-android {
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-}
 
-kotlin {
-    jvmToolchain(17)
-}
-
-kapt {
-    javacOptions {
-        option("-source", "17")
-        option("-target", "17")
-    }
-}

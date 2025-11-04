@@ -9,7 +9,7 @@
         android:name="com.example.futurescript.ui.landing.LandingFragment"
         android:label="Start">
         <action
-            android:id="@+id/action_landing_to_login"
+            android:id="@+id/action_accountCreated_to_login"
             app:destination="@id/loginFragment"/>
     </fragment>
 
@@ -33,5 +33,21 @@
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.example.futurescript.ui.auth.SignupFragment"
-        android:label="Create Account"/>
+        android:label="Create Account">
+            <action
+                android:id="@+id/action_signup_to_account_created"
+                app:destination="@id/accountCreatedFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/accountCreatedFragment"
+        android:name="com.example.futurescript.ui.auth.AccountCreatedFragment"
+        android:label="Account Created" />
+
+
+    <fragment
+        android:id="@+id/composeFragment"
+        android:name="com.example.futurescript.ui.compose.ComposeFragment"
+        android:label="fragment_compose">
+    </fragment>
 </navigation>
