@@ -1,16 +1,16 @@
-package com.example.futurescript.data.database
+package com.example.futurescript.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.futurescript.data.database.entities.Letter
 import kotlinx.coroutines.flow.Flow
-import com.example.futurescript.data.model.Letter
 
 @Dao
 interface LetterDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insert(letter: Letter): Long
     @Query("SELECT * FROM Letter ORDER BY deliverAtEpochSec ASC")
     fun watchAll(): Flow<List<Letter>>

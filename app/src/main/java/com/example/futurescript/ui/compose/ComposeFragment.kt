@@ -9,7 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.futurescript.data.database.AppDatabase
-import com.example.futurescript.data.model.Letter
+import com.example.futurescript.data.database.entities.Letter
 import com.example.futurescript.data.repository.LetterRepository
 import com.example.futurescript.databinding.FragmentComposeBinding
 import com.example.futurescript.util.localDateToEpochSeconds

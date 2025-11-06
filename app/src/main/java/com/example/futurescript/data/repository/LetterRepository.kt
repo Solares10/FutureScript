@@ -1,7 +1,7 @@
 package com.example.futurescript.data.repository
 
-import com.example.futurescript.data.database.LetterDao
-import com.example.futurescript.data.model.Letter
+import com.example.futurescript.data.database.dao.LetterDao
+import com.example.futurescript.data.database.entities.Letter
 import kotlinx.coroutines.flow.Flow
 
 class LetterRepository(private val dao: LetterDao) {

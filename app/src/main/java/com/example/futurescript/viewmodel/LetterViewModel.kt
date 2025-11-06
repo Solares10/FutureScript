@@ -4,7 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.futurescript.data.model.Letter
+import com.example.futurescript.data.database.entities.Letter
 import com.example.futurescript.data.repository.LetterRepository
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

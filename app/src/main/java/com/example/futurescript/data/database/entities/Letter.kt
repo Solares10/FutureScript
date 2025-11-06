@@ -1,4 +1,4 @@
-package com.example.futurescript.data.model
+package com.example.futurescript.data.database.entities
 
 import android.os.Build
 import androidx.annotation.RequiresApi
