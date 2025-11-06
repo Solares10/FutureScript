@@ -1,16 +1,7 @@
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        val navVersion = "2.7.7" // Match the version from your libs.versions.toml
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion")
-    }
-}
-
 plugins {
-    alias(libs.plugins.android.application) apply false
-    alias(libs.plugins.kotlin.android) apply false
-    alias(libs.plugins.kotlin.kapt) apply false
-    alias(libs.plugins.navigation.safeargs.kotlin) apply false
+    id("com.android.application") version "8.6.0" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.24" apply false
+
+    // ✅ Safe Args plugin for Kotlin DSL (no classpath here)
+    id("androidx.navigation.safeargs.kotlin") version "2.8.3" apply false
 }

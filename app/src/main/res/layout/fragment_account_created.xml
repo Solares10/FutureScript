@@ -1,17 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:gravity="center"
-    android:padding="24dp" android:background="@color/fs_pink_bg"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECD9DC">
 
+    <!-- "ACCOUNT CREATED!" Title -->
     <TextView
-        android:text="ACCOUNT CREATED! Please login to start exploring Future Script."
-        android:gravity="center" android:textColor="@color/fs_ink"
-        android:textSize="18sp" android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ACCOUNT CREATED!"
+        android:textSize="28sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:fontFamily="@font/noticiatext_bold"
+        android:letterSpacing="0.1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="180dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginPageBtn" android:text="LOGIN PAGE"
-        android:layout_marginTop="24dp" android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+    <!-- Body Text -->
+    <TextView
+        android:id="@+id/bodyText"
+        android:layout_width="405dp"
+        android:layout_height="147dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="@font/noticiatext_regular"
+        android:lineSpacingExtra="4dp"
+        android:text="Thank you for signing up.\nWe are excited to have\nyou join us. Please login\nto start exploring"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+    <!-- "Future Script" Logo -->
+
+    <!-- Login Button -->
+    <ImageView
+        android:id="@+id/brandLogo"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="40dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_future_script"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bodyText" />
+
+    <Button
+        android:id="@+id/loginPageBtn"
+        android:layout_width="211dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/noticiatext_regular"
+        android:text="LOGIN PAGE"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
