@@ -1,54 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:background="@color/fs_pink_bg"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EDD5D9">
 
-    <TextView
-        android:text="Write your letter here..."
-        android:textColor="@color/fs_ink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <EditText
-        android:id="@+id/title"
-        android:hint="Title"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:textColor="@color/fs_ink"
-        android:layout_marginBottom="8dp"
-        android:maxLines="1"
-        android:inputType="textCapSentences"/>
-
-
-    <EditText
-        android:id="@+id/message"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="top"
-        android:minLines="8"
-        android:background="@android:color/transparent"
-        android:textColor="@color/fs_ink"/>
-
-    <EditText
-        android:id="@+id/dateField"
-        android:hint="DD-MM-YYYY"
-        android:focusable="false"
-        android:clickable="true"
+    <!-- Top Bar with Pink Background -->
+    <LinearLayout
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="@color/fs_accent"
-        android:textColor="@color/fs_ink"/>
+        android:background="#F2BBC4"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Back Button -->
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="BACK"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:fontFamily="@font/noticiatext_bold"
+            android:background="@drawable/back_button_border"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"/>
+
+        <!-- Spacer to push logo to the right -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <!-- Future Script Logo -->
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logo_future_script"
+            android:scaleType="fitEnd"
+            android:adjustViewBounds="true"/>
+
+    </LinearLayout>
+
+    <!-- Letter Input Box -->
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:hint="Write your letter here..."
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:fontFamily="@font/noticiatext_regular"
+        android:gravity="top|start"
+        android:padding="16dp"
+        android:background="@drawable/letter_input_background"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dateLabel"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- "Choose your send date:" Label -->
+    <TextView
+        android:id="@+id/dateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose your send date:"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/noticiatext_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dateField"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- Date Input Field -->
+    <EditText
+        android:id="@+id/dateField"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:hint="DD-MM-YYYY"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:fontFamily="@font/noticiatext_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/date_input_background"
+        android:inputType="date"
+        android:focusable="false"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/sendBtn"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Send Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
         android:text="SEND"
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:fontFamily="@font/noticiatext_bold"
+        android:background="@drawable/send_button_background"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="40dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
