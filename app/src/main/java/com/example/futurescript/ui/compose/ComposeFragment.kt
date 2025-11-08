@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.futurescript.data.database.AppDatabase
 import com.example.futurescript.data.database.entities.Letter
 import com.example.futurescript.data.repository.LetterRepository
@@ -21,42 +20,64 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class ComposeFragment : Fragment() {
-    private var _b: FragmentComposeBinding? = null
-    private val b get() = _b!!
-    private lateinit var repo: LetterRepository
-    private var pickedDate: LocalDate? = null
 
-    override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
-        _b = FragmentComposeBinding.inflate(i, c, false); return b.root
+    private var _binding: FragmentComposeBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var repository: LetterRepository
+    private var selectedDate: LocalDate? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentComposeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        repo = LetterRepository(AppDatabase.get(requireContext()).letterDao())
 
-        b.dateField.setOnClickListener {
-            showDatePicker(requireContext()) { ld ->
-                pickedDate = ld
-                b.dateField.setText(ld.toString())
+        repository = LetterRepository(AppDatabase.get(requireContext()).letterDao())
+
+        // Open date picker
+        binding.dateField.setOnClickListener {
+            showDatePicker(requireContext()) { date ->
+                selectedDate = date
+                binding.dateField.setText(date.toString())
             }
         }
 
-        b.sendBtn.setOnClickListener {
-            val title = b.title.text.toString().trim()
-            val msg = b.message.text.toString().trim()
-            val ld = pickedDate ?: return@setOnClickListener
-            val epoch = localDateToEpochSeconds(ld)
-            CoroutineScope(Dispatchers.IO).launch {
-                val id = repo.insert(Letter(title = title, message = msg, deliverAtEpochSec = epoch))
-                scheduleDelivery(requireContext(), id, epoch, msg)
+        // Send letter
+        binding.sendBtn.setOnClickListener {
+            val titleText = binding.titleField.text.toString().trim()
+            val messageText = binding.messageField.text.toString().trim()
+            val date = selectedDate ?: return@setOnClickListener
+            val epoch = localDateToEpochSeconds(date)
+
+            if (titleText.isEmpty() || messageText.isEmpty()) {
+                return@setOnClickListener
             }
-            //findNavController().navigate(ComposeFragmentDirections.actionComposeToSentConfirm())
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val id = repository.insert(
+                    Letter(
+                        title = titleText,
+                        message = messageText,
+                        deliverAtEpochSec = epoch
+                    )
+                )
+                scheduleDelivery(requireContext(), id, epoch, messageText)
+            }
+
+            // Uncomment when navigation works:
+            // findNavController().navigate(ComposeFragmentDirections.actionComposeToSentConfirm())
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _b = null
+        _binding = null
     }
 }
