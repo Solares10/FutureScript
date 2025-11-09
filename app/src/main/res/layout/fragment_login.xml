@@ -13,11 +13,13 @@
         android:padding="32dp">
 
         <!-- Hourglass Icon -->
+
+        <!-- Future Script Logo -->
         <ImageView
             android:id="@+id/hourglassIcon"
             android:layout_width="179dp"
             android:layout_height="149dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/icon_hourglass"
@@ -25,7 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Future Script Logo -->
         <ImageView
             android:id="@+id/logoImage"
             android:layout_width="0dp"
