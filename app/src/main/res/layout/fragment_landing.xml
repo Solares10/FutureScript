@@ -1,44 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/fs_pink_bg">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECD9DC">
 
     <LinearLayout
-        android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:padding="28dp">
-
-        <TextView
-            android:id="@+id/title"
-            android:text="Future Script"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            android:textColor="@color/fs_text"
-            android:shadowColor="#40000000"
-            android:shadowDx="0" android:shadowDy="2" android:shadowRadius="6"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="28dp"
+        android:gravity="center_horizontal">
 
         <!-- envelope heart area (placeholder card you can swap with an image) -->
-        <LinearLayout
-            android:layout_width="match_parent" android:layout_height="220dp"
-            android:background="@drawable/bg_card_pink"
-            android:layout_marginTop="24dp" android:layout_marginBottom="16dp"/>
+
+        <ImageView
+            android:id="@+id/title"
+            android:layout_width="312dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_future_script" />
+
+        <ImageView
+            android:id="@+id/envelopeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="294dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/envelope_heart" />
 
         <TextView
-            android:text="Write future letters to yourself!"
-            android:textSize="18sp"
-            android:textColor="@color/fs_text"
-            android:layout_marginTop="12dp"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            android:text="write future letters to yourself!"
+            android:fontFamily="@font/nanumpenscript_regular"
+            android:textSize="30sp"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:shadowColor="#F2BBC4"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"/>
 
         <Button
             android:id="@+id/beginButton"
             android:text="BEGIN WRITING"
+            android:fontFamily="@font/noticiatext_bold"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:textColor="@color/fs_text"
-            android:background="@drawable/bg_pill_button"
-            android:layout_width="match_parent" android:layout_height="56dp"
-            android:layout_marginTop="32dp"/>
+            android:background="@drawable/rounded_button"
+            android:layout_width="280dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:textSize="25sp"/>
     </LinearLayout>
 </ScrollView>
