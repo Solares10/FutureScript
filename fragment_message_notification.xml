@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_message_notification"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8E1E8"
+    tools:context=".MessageNotificationFragment">
+
+    <!-- Envelope image -->
+    <ImageView
+        android:id="@+id/image_envelope"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/icon_letter_notification"
+        android:contentDescription="@string/incoming_letter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:adjustViewBounds="true" />
+
+    <!-- Notification text -->
+    <TextView
+        android:id="@+id/text_notification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="You’ve got a letter from your past self!"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/image_envelope"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Read Letter Button -->
+    <ImageButton
+        android:id="@+id/button_read_letter"
+        android:layout_width="226dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/icon_button_read"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/read_letter"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/text_notification"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Later Button -->
+    <ImageButton
+        android:id="@+id/button_later"
+        android:layout_width="226dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/icon_button_later"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/read_later"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/button_read_letter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
