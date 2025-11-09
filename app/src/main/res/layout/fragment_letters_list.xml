@@ -1,84 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ECD9DC">
+    android:background="#F8E1E8">
 
-    <!-- "Letters" Title -->
-    <TextView
-        android:id="@+id/pageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Letters"
-        android:textSize="36sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/noticiatext_bold"
+    <!-- RecyclerView for showing letters -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lettersRecycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="28dp"/>
-
-    <!-- Envelope Heart Image with Logo -->
-    <ImageView
-        android:id="@+id/envelopeImage"
-        android:layout_width="0dp"
-        android:layout_height="180dp"
-        android:src="@drawable/envelope_logo"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        app:layout_constraintTop_toBottomOf="@id/pageTitle"
+        app:layout_constraintBottom_toTopOf="@id/fab"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"/>
+        android:padding="16dp"
+        android:clipToPadding="false" />
 
-    <!-- "Start Writing" Heading -->
-    <TextView
-        android:id="@+id/startWritingTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Writing"
-        android:textSize="32sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/noticiatext_bold"
-        app:layout_constraintTop_toBottomOf="@id/envelopeImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp"/>
-
-    <!-- Description Text -->
-    <TextView
-        android:id="@+id/descriptionText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Create your future letters.\nClick the plus button to\nstart."
-        android:textSize="18sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/noticiatext_regular"
-        android:gravity="center"
-        android:lineSpacingExtra="4dp"
-        app:layout_constraintTop_toBottomOf="@id/startWritingTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"/>
-
-    <!-- Floating Action Button (+ button) -->
+    <!-- Floating action button to compose new letters -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addButton"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_input_add"
-        app:tint="#9E8088"
-        app:backgroundTint="#FFFFFF"
-        app:elevation="8dp"
+        android:layout_margin="24dp"
+        android:contentDescription="@string/write_new_letter"
+        app:srcCompat="@drawable/ic_baseline_edit_24"
+        app:tint="@android:color/white"
+        app:backgroundTint="#F6B4C4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="80dp"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
