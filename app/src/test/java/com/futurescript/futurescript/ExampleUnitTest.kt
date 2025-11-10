@@ -1,4 +1,4 @@
-package com.futurescript.futurescript
+package com.example.futurescript
 
 import org.junit.Test
 

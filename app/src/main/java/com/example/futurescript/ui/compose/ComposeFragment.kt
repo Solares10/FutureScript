@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.ui.compose
+package com.example.futurescript.ui.compose
 
 import android.os.Build
 import android.os.Bundle

@@ -1,4 +1,5 @@
 package com.example.futurescript2
+import com.example.futurescript.R
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +23,8 @@ class MessageNotificationFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_message_notification, container, false)
         envelopeImage = view.findViewById(R.id.image_envelope)
-        openButton = view.findViewById(R.id.button_open_letter)
+        openButton = view.findViewById(R.id.button_read_letter
+)
 
         // Gentle flap animation while idle
         val idleAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.wing_flap)

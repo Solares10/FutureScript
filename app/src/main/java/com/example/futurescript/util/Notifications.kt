@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.util
+package com.example.futurescript.util
 
 import android.Manifest
 import android.app.NotificationChannel
@@ -37,13 +37,13 @@ fun createNotificationChannelIfNeeded(context: Context) {
 fun notifyLetter(context: Context, id: Int, message: String) {
     val notification = NotificationCompat.Builder(context, CHANNEL_ID)
         .setSmallIcon(R.mipmap.ic_launcher)
-        .setContentTitle("A letter from your past self 💌")
+        .setContentTitle("A letter from your past self ??")
         .setContentText(message.take(60))
         .setStyle(NotificationCompat.BigTextStyle().bigText(message))
         .setAutoCancel(true)
         .build()
 
-    // ✅ Safe permission check for Android 13+
+    // ? Safe permission check for Android 13+
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
         ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS)
         == PackageManager.PERMISSION_GRANTED

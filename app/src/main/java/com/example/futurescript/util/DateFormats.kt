@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.util
+package com.example.futurescript.util
 
 import android.app.DatePickerDialog
 import android.content.Context

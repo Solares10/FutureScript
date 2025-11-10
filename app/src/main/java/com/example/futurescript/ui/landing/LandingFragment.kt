@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.ui.landing
+package com.example.futurescript.ui.landing
 
 import android.os.Bundle
 import android.view.LayoutInflater

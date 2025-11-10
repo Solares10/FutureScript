@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.workers
+package com.example.futurescript.workers
 
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters

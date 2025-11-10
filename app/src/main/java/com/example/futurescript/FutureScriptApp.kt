@@ -1,4 +1,4 @@
-﻿package com.example.futurescript
+package com.example.futurescript
 
 import android.app.Application
 import com.example.futurescript.util.createNotificationChannelIfNeeded

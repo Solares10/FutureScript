@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.ui.inbox
+package com.example.futurescript.ui.inbox
 
 import android.os.Bundle
 import android.view.LayoutInflater

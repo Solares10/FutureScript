@@ -3,7 +3,6 @@
     android:fillAfter="true"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator">
 
-    <!-- Envelope pops slightly (feels like opening) -->
     <scale
         android:fromXScale="1.0"
         android:toXScale="1.08"
@@ -13,7 +12,6 @@
         android:pivotY="50%"
         android:duration="400" />
 
-    <!-- Gentle bounce back for realism -->
     <scale
         android:startOffset="400"
         android:fromXScale="1.08"
@@ -24,7 +22,6 @@
         android:pivotY="50%"
         android:duration="400" />
 
-    <!-- Fade away as it transitions -->
     <alpha
         android:startOffset="800"
         android:fromAlpha="1.0"

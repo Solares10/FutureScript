@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Future Script</string>
-
-    <!-- Missing strings -->
+    <string name="envelope_with_wings">Envelope with wings</string>
+    <string name="home_page_button">Back to Home</string>
     <string name="incoming_letter">Incoming letter from your future self</string>
-    <string name="read_letter">Read Letter</string>
-    <string name="read_later">Read Later</string>
+    <string name="read_letter_button">Read Letter</string>
+    <string name="later_button">Later</string>
+
     <string name="write_new_letter">Write New Letter</string>
 </resources>

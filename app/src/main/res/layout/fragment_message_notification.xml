@@ -36,32 +36,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- READ LETTER button -->
+    <!-- "Read Letter" Button -->
     <ImageButton
         android:id="@+id/button_read_letter"
-        android:layout_width="226dp"
+        android:layout_width="200dp"
         android:layout_height="64dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/icon_button_read"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/read_letter"
+        android:contentDescription="@string/read_letter_button"
         android:scaleType="fitXY"
-        app:layout_constraintTop_toBottomOf="@id/text_notification"
+        app:layout_constraintTop_toBottomOf="@id/image_envelope"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- LATER button -->
+    <!-- "Later" Button -->
     <ImageButton
         android:id="@+id/button_later"
-        android:layout_width="226dp"
+        android:layout_width="200dp"
         android:layout_height="64dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/icon_button_later"
         android:background="@android:color/transparent"
-        android:contentDescription="@string/read_later"
+        android:contentDescription="@string/later_button"
         android:scaleType="fitXY"
         app:layout_constraintTop_toBottomOf="@id/button_read_letter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

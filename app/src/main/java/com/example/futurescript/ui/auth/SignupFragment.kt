@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.ui.auth
+package com.example.futurescript.ui.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater

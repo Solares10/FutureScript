@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.ui
+package com.example.futurescript.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

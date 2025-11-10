@@ -1,4 +1,4 @@
-﻿package com.example.futurescript.ui.confirm
+package com.example.futurescript.ui.confirm
 
 import android.os.Bundle
 import android.view.LayoutInflater
