@@ -2,7 +2,7 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator">
 
-    <!-- Slight scale up and down for floating motion -->
+    <!-- Slight floating motion -->
     <scale
         android:fromXScale="1.0"
         android:toXScale="1.05"
@@ -14,7 +14,7 @@
         android:repeatCount="infinite"
         android:repeatMode="reverse" />
 
-    <!-- Soft fade in/out glow effect -->
+    <!-- Gentle glow fade -->
     <alpha
         android:fromAlpha="1.0"
         android:toAlpha="0.9"

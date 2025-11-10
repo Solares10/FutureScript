@@ -30,7 +30,7 @@ class LoginFragment : Fragment() {
         // Handle Sign Up Text click
         binding.signUpText.setOnClickListener {
             // Optional navigation (requires navigation graph)
-            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+            //findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
 
         return view

@@ -46,7 +46,7 @@ class LettersListFragment : Fragment() {
         b.lettersRecycler.adapter = adapter
 
         b.fab.setOnClickListener {
-            findNavController().navigate(R.id.composeFragment)
+            //findNavController().navigate(R.id.composeFragment)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

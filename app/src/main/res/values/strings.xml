@@ -3,9 +3,10 @@
     <string name="app_name">Future Script</string>
     <string name="envelope_with_wings">Envelope with wings</string>
     <string name="home_page_button">Back to Home</string>
-    <string name="incoming_letter">Incoming letter from your future self</string>
+    <string name="incoming_letter">Incoming letter</string>
     <string name="read_letter_button">Read Letter</string>
     <string name="later_button">Later</string>
+
 
     <string name="write_new_letter">Write New Letter</string>
 </resources>

@@ -28,7 +28,7 @@ class SentConfirmationFragment : Fragment() {
 
         // When the user taps the "HOME PAGE" button, navigate back
         b.homeBtn.setOnClickListener {
-            findNavController().navigate(R.id.lettersListFragment)
+            //findNavController().navigate(R.id.lettersListFragment)
         }
     }
 

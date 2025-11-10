@@ -1,5 +1,4 @@
-package com.example.futurescript2
-import com.example.futurescript.R
+package com.example.futurescript
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,15 +20,18 @@ class MessageNotificationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_message_notification, container, false)
-        envelopeImage = view.findViewById(R.id.image_envelope)
-        openButton = view.findViewById(R.id.button_read_letter
-)
 
-        // Gentle flap animation while idle
-        val idleAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.wing_flap)
+        // Connect UI elements
+        envelopeImage = view.findViewById(R.id.image_envelope)
+        openButton = view.findViewById(R.id.button_read_letter)
+
+        // Start the idle floating animation
+        val idleAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.envelope_idle)
         envelopeImage.startAnimation(idleAnim)
 
+        // Handle button click → play open animation and navigate
         openButton.setOnClickListener {
             playOpenAnimation()
         }
@@ -46,7 +48,8 @@ class MessageNotificationFragment : Fragment() {
             override fun onAnimationRepeat(animation: Animation) {}
 
             override fun onAnimationEnd(animation: Animation) {
-                findNavController().navigate(R.id.action_messageNotification_to_viewLetter)
+                // Navigate to the next screen after animation completes
+                //findNavController().navigate(R.id.action_messageNotification_to_viewLetter)
             }
         })
     }

@@ -3,78 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/landingFragment">
 
-    <!-- Login Screen -->
+    <!-- Landing (first screen when app starts) -->
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.example.futurescript.ui.landing.LandingFragment"
+        android:label="Landing"
+        tools:layout="@layout/fragment_landing" />
+
+    <!-- Login -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.futurescript.ui.auth.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
 
-    <!-- Sign Up Screen -->
-    <fragment
-        android:id="@+id/signupFragment"
-        android:name="com.example.futurescript.ui.auth.SignupFragment"
-        android:label="Sign Up"
-        tools:layout="@layout/fragment_signup">
-        <action
-            android:id="@+id/action_signup_to_account_created"
-            app:destination="@id/accountCreatedFragment" />
-    </fragment>
-
-    <!-- Account Created Confirmation -->
-    <fragment
-        android:id="@+id/accountCreatedFragment"
-        android:name="com.example.futurescript.ui.auth.AccountCreatedFragment"
-        android:label="Account Created"
-        tools:layout="@layout/fragment_account_created" />
-
-    <!-- Message Notification -->
+    <!-- Message Notification (envelope screen for later) -->
     <fragment
         android:id="@+id/messageNotificationFragment"
         android:name="com.example.futurescript.MessageNotificationFragment"
         android:label="Message Notification"
-        tools:layout="@layout/fragment_message_notification">
-        <action
-            android:id="@+id/action_messageNotification_to_viewLetter"
-            app:destination="@id/viewLetterFragment" />
-    </fragment>
-
-    <!-- View Letter Screen -->
-    <fragment
-        android:id="@+id/viewLetterFragment"
-        android:name="com.example.futurescript.ui.letter.ViewLetterFragment"
-        android:label="View Letter"
-        tools:layout="@layout/fragment_view_letter" />
-
-    <!-- Letters List -->
-    <fragment
-        android:id="@+id/lettersListFragment"
-        android:name="com.example.futurescript.ui.inbox.LettersListFragment"
-        android:label="Letters List"
-        tools:layout="@layout/fragment_letters_list" />
-
-    <!-- Compose Letter -->
-    <fragment
-        android:id="@+id/composeFragment"
-        android:name="com.example.futurescript.ui.compose.ComposeFragment"
-        android:label="Compose Letter"
-        tools:layout="@layout/fragment_compose" />
-
-    <!-- Sent Confirmation -->
-    <fragment
-        android:id="@+id/sentConfirmationFragment"
-        android:name="com.example.futurescript.ui.confirm.SentConfirmationFragment"
-        android:label="Sent Confirmation"
-        tools:layout="@layout/fragment_sent_confirmation">
-        <action
-            android:id="@+id/action_sentConfirmation_to_lettersList"
-            app:destination="@id/lettersListFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_message_notification" />
 
 </navigation>
