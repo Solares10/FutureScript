@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Future Script</string>
+    <!-- Your existing strings -->
 
-    <!-- Missing strings -->
+    <!-- Added missing ones -->
     <string name="incoming_letter">Incoming letter from your future self</string>
     <string name="read_letter">Read Letter</string>
     <string name="read_later">Read Later</string>

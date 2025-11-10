@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App strings -->
     <string name="app_name">Future Script</string>
 
-    <!-- Missing strings -->
+    <!-- Added missing ones -->
     <string name="incoming_letter">Incoming letter from your future self</string>
     <string name="read_letter">Read Letter</string>
     <string name="read_later">Read Later</string>
     <string name="write_new_letter">Write New Letter</string>
+
+    <!-- Add any other text labels you want here -->
 </resources>
