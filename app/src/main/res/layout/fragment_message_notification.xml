@@ -32,7 +32,7 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/noticiatext_bold"
         app:layout_constraintTop_toBottomOf="@id/image_envelope"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

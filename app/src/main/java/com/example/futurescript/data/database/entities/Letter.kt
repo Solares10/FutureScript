@@ -9,7 +9,6 @@ import java.time.Instant
 @Entity
 data class Letter @RequiresApi(Build.VERSION_CODES.O) constructor(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val title: String,
     val message: String,
     val deliverAtEpochSec: Long,
     val createdAtEpochSec: Long = Instant.now().epochSecond,

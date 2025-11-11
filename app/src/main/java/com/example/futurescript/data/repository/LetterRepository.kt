@@ -2,10 +2,13 @@ package com.example.futurescript.data.repository
 
 import com.example.futurescript.data.database.dao.LetterDao
 import com.example.futurescript.data.database.entities.Letter
+import com.example.futurescript.data.network.model.LetterDto
 import com.example.futurescript.data.network.api.FutureScriptApiService
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class LetterRepository(
+
+class LetterRepository @Inject constructor(
     private val dao: LetterDao,
     private val api: FutureScriptApiService
 ) {
@@ -15,11 +18,22 @@ class LetterRepository(
 
     suspend fun insertLocal(letter: Letter) = dao.insert(letter)
 
+    // Fetches letters from the remote API, converts them to entities, and inserts them into the local database.
     suspend fun syncLetters() {
-        val letters = api.getLetters()
-        if (letters.isSuccessful) {
-            val remoteLetters = letters.body() ?: emptyList()
-            // TODO: Convert Dto to Entity and insert into Room
+        try {
+            val response = api.getLetters()
+            if (response.isSuccessful) {
+                // Get list of DTOs from response body
+                val remoteLettersDto = response.body() ?: emptyList()
+                val localLetters = remoteLettersDto.map {dto -> dto.toEntity()}
+
+                if (localLetters.isNotEmpty()) {
+                    dao.insertAll(localLetters)
+                }
+            }
+        }
+        catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -29,4 +43,14 @@ class LetterRepository(
 
     suspend fun deleteAll() = dao.deleteAll()
 
+}
+
+private fun LetterDto.toEntity(): Letter {
+    return Letter(
+        id = this.id,
+        message = this.message,
+        deliverAtEpochSec = this.deliverAtEpochSec,
+        createdAtEpochSec = this.createdAtEpochSec,
+        delivered = this.isDelivered
+    )
 }

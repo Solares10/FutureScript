@@ -5,7 +5,7 @@
     android:id="@+id/fragment_sent_confirmation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8E1E8"
+    android:background="#ECD9DC"
     tools:context=".SentConfirmationFragment">
 
     <!-- Winged Envelope Image -->
@@ -32,7 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/noticiatext_bold"
         android:text="Your letter is on the way!\nGo back to the home page\nto write more."
         android:textAlignment="center"
         android:textColor="#FFFFFF"

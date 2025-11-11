@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.futurescript.R
 import com.example.futurescript.databinding.FragmentSentConfirmationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SentConfirmationFragment : Fragment() {
 
     private var _b: FragmentSentConfirmationBinding? = null

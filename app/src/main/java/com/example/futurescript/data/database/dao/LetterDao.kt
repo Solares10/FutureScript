@@ -12,6 +12,14 @@ import kotlinx.coroutines.flow.Flow
 interface LetterDao {
     @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insert(letter: Letter): Long
+
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
+    suspend fun insertAll(letters: List<Letter>) {
+        for (letter in letters) {
+            insert(letter)
+        }
+    }
+
     @Query("SELECT * FROM Letter ORDER BY deliverAtEpochSec ASC")
     fun watchAll(): Flow<List<Letter>>
     @Query("UPDATE Letter SET delivered = 1 WHERE id = :id")

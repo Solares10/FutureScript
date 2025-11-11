@@ -10,7 +10,12 @@
         android:id="@+id/landingFragment"
         android:name="com.example.futurescript.ui.landing.LandingFragment"
         android:label="Landing"
-        tools:layout="@layout/fragment_landing" />
+        tools:layout="@layout/fragment_landing">
+        <action
+            android:id="@+id/action_landingFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
 
     <!-- Login -->
     <fragment

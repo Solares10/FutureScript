@@ -1,27 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:gravity="center_horizontal"
-    android:padding="24dp" android:background="@color/fs_pink_bg"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECD9DC"
+    android:fillViewport="true">
 
-    <TextView android:text="Create your account" android:textSize="28sp"
-        android:textStyle="bold" android:textColor="@color/fs_ink"
-        android:layout_marginBottom="16dp" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="32dp">
 
-    <EditText android:id="@+id/name" android:hint="Name"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <!-- Envelope Heart Image -->
+        <ImageView
+            android:id="@+id/envelopeImage"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:src="@drawable/envelope_logo"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"/>
 
-    <EditText android:id="@+id/email" android:hint="Email" android:inputType="textEmailAddress"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <!-- "CREATE YOUR ACCOUNT" Title -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CREATE YOUR ACCOUNT"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/noticiatext_bold"
+            android:letterSpacing="0.05"
+            app:layout_constraintTop_toBottomOf="@id/envelopeImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"/>
 
-    <EditText android:id="@+id/phone" android:hint="Phone number" android:inputType="phone"
-        android:layout_marginTop="12dp"
-        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <!-- NAME Label -->
+        <TextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NAME"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/noticiatext_bold"
+            app:layout_constraintTop_toBottomOf="@id/titleText"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/signupBtn" android:text="SIGN UP"
-        android:layout_marginTop="24dp" android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        <!-- NAME Input -->
+        <EditText
+            android:id="@+id/nameInput"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@drawable/input_field_background"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#9E8088"
+            android:textColorHint="#E8B4C8"
+            android:textSize="16sp"
+            android:fontFamily="@font/noticiatext_regular"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toBottomOf="@id/nameLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- EMAIL Label -->
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EMAIL"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/noticiatext_bold"
+            app:layout_constraintTop_toBottomOf="@id/nameInput"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <!-- EMAIL Input -->
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@drawable/input_field_background"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#9E8088"
+            android:textColorHint="#E8B4C8"
+            android:textSize="16sp"
+            android:fontFamily="@font/noticiatext_regular"
+            android:inputType="textEmailAddress"
+            app:layout_constraintTop_toBottomOf="@id/emailLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- PASSWORD Label -->
+        <TextView
+            android:id="@+id/passwordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PASSWORD"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/noticiatext_bold"
+            app:layout_constraintTop_toBottomOf="@id/emailInput"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <!-- PASSWORD Input -->
+        <EditText
+            android:id="@+id/passwordInput"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@drawable/input_field_background"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#9E8088"
+            android:textColorHint="#E8B4C8"
+            android:textSize="16sp"
+            android:fontFamily="@font/noticiatext_regular"
+            android:inputType="textPassword"
+            app:layout_constraintTop_toBottomOf="@id/passwordLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- PHONE NUMBER Label -->
+        <TextView
+            android:id="@+id/phoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHONE NUMBER"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/noticiatext_bold"
+            app:layout_constraintTop_toBottomOf="@id/passwordInput"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"/>
+
+        <!-- PHONE NUMBER Input -->
+        <EditText
+            android:id="@+id/phoneInput"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@drawable/input_field_background"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="#9E8088"
+            android:textColorHint="#E8B4C8"
+            android:textSize="16sp"
+            android:fontFamily="@font/noticiatext_regular"
+            android:inputType="phone"
+            app:layout_constraintTop_toBottomOf="@id/phoneLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
+
+        <!-- SIGN UP Button -->
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="SIGN UP"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/noticiatext_bold"
+            android:background="@drawable/bg_pill_button"
+            app:layout_constraintTop_toBottomOf="@id/phoneInput"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="32dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
