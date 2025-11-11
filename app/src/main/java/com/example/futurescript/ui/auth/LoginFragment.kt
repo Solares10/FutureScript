@@ -17,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
 // LoginFragment.kt
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     // View Binding

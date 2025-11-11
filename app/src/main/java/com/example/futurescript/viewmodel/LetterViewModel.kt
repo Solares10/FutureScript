@@ -26,6 +26,12 @@ class LetterViewModel @Inject constructor(
         repo.lettersFlow()
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
+    init {
+        viewModelScope.launch {
+            repo.syncLetters()
+        }
+    }
+
     // UI state for single message details
     private val _selectedLetter = MutableStateFlow<Letter?>(null)
     val selectedLetter: StateFlow<Letter?> = _selectedLetter.asStateFlow()
@@ -33,10 +39,9 @@ class LetterViewModel @Inject constructor(
 
     // Basic CRUD operations
     @RequiresApi(Build.VERSION_CODES.O)
-    fun insert(title: String, message: String, deliverAt: Long) {
+    fun insert(message: String, deliverAt: Long) {
         CoroutineScope(Dispatchers.IO).launch {
             val newLetter = Letter(
-                title = title.trim(),
                 message = message.trim(),
                 deliverAtEpochSec = deliverAt
             )

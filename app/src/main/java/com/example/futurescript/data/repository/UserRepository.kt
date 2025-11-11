@@ -3,7 +3,7 @@ package com.example.futurescript.data.repository
 import com.example.futurescript.data.auth.AuthManager
 import com.google.firebase.auth.FirebaseUser
 import com.example.futurescript.data.auth.model.User
-
+import javax.inject.Inject
 
 fun FirebaseUser?.toUser(): User {
     return User(
@@ -13,7 +13,8 @@ fun FirebaseUser?.toUser(): User {
     )
 }
 
-class UserRepository(private val authManager: AuthManager = AuthManager()) {
+
+class UserRepository @Inject constructor(private val authManager: AuthManager) {
     val currentUser: User? get() = authManager.currentUser?.toUser()
 
     suspend fun login(email: String, password: String): User? {

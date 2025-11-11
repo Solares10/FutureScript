@@ -76,7 +76,7 @@ dependencies {
 
     // Room (with kapt)
     implementation("androidx.room:room-runtime:2.6.1")
-    implementation(libs.firebase.auth)
+    implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
@@ -96,7 +96,6 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.47")
 
     // ViewModel injection support
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // OkHttp + Logging Interceptor

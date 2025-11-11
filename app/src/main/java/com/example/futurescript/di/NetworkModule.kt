@@ -1,5 +1,6 @@
-package com.example.futurescript.data.network
+package com.example.futurescript.di
 
+import com.example.futurescript.data.network.api.FutureScriptApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,7 +10,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
-import com.example.futurescript.data.network.api.FutureScriptApiService
 
 @Module
 @InstallIn(SingletonComponent::class)

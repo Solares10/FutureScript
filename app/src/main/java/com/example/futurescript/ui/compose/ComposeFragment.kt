@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -48,20 +49,18 @@ class ComposeFragment : Fragment() {
 
         // Send letter
         binding.sendBtn.setOnClickListener {
-            val titleText = binding.titleField.text.toString().trim()
             val messageText = binding.messageField.text.toString().trim()
             val date = selectedDate ?: return@setOnClickListener
             val epoch = localDateToEpochSeconds(date)
 
-            if (titleText.isEmpty() || messageText.isEmpty()) {
-                return@setOnClickListener
+            if (messageText.isNotBlank()) {
+                letterViewModel.insert(messageText, epoch)
+                findNavController().navigate(R.id.sentConfirmationFragment)
+            } else {
+                Toast.makeText(context, "Please enter a message", Toast.LENGTH_SHORT).show()
             }
+        }
 
-
-            letterViewModel.insert(titleText, messageText, epoch)
-
-            // Uncomment when navigation works:
-            findNavController().navigate(R.id.sentConfirmationFragment)        }
     }
 
     override fun onDestroyView() {

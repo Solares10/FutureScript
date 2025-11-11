@@ -52,7 +52,7 @@
 
     <!-- Letter Input Field -->
     <EditText
-        android:id="@+id/message"
+        android:id="@+id/messageField"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:hint="Write your letter here..."
