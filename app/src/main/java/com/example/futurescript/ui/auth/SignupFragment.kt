@@ -17,7 +17,7 @@ class SignupFragment : Fragment() {
     }
     override fun onViewCreated(v: View, s: Bundle?) {
         b.signupBtn.setOnClickListener {
-           //findNavController().navigate(R.id.action_signup_to_account_created)
+           findNavController().navigate(R.id.action_signupFragment_to_accountCreatedFragment)
         }
     }
     override fun onDestroyView() { _b = null; super.onDestroyView() }

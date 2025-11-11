@@ -1,4 +1,4 @@
-package com.example.futurescript.ui.compose
+﻿package com.example.futurescript.ui.compose
 
 import android.os.Build
 import android.os.Bundle
@@ -7,23 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.example.futurescript.data.database.AppDatabase
-import com.example.futurescript.data.database.entities.Letter
-import com.example.futurescript.data.repository.LetterRepository
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.example.futurescript.R
+import com.example.futurescript.viewmodel.LetterViewModel
 import com.example.futurescript.databinding.FragmentComposeBinding
 import com.example.futurescript.util.localDateToEpochSeconds
 import com.example.futurescript.util.showDatePicker
-import com.example.futurescript.workers.scheduleDelivery
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 
+@AndroidEntryPoint
 class ComposeFragment : Fragment() {
 
     private var _binding: FragmentComposeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var repository: LetterRepository
+    private val letterViewModel: LetterViewModel by viewModels()
     private var selectedDate: LocalDate? = null
 
     override fun onCreateView(
@@ -38,8 +37,6 @@ class ComposeFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        repository = LetterRepository(AppDatabase.get(requireContext()).letterDao())
 
         // Open date picker
         binding.dateField.setOnClickListener {
@@ -60,20 +57,11 @@ class ComposeFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val id = repository.insert(
-                    Letter(
-                        title = titleText,
-                        message = messageText,
-                        deliverAtEpochSec = epoch
-                    )
-                )
-                scheduleDelivery(requireContext(), id, epoch, messageText)
-            }
+
+            letterViewModel.insert(titleText, messageText, epoch)
 
             // Uncomment when navigation works:
-            // findNavController().navigate(ComposeFragmentDirections.actionComposeToSentConfirm())
-        }
+            findNavController().navigate(R.id.sentConfirmationFragment)        }
     }
 
     override fun onDestroyView() {

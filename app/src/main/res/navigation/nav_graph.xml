@@ -17,7 +17,61 @@
         android:id="@+id/loginFragment"
         android:name="com.example.futurescript.ui.auth.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+
+    <!-- Account Created -->
+    <fragment
+        android:id="@+id/accountCreatedFragment"
+        android:name="com.example.futurescript.ui.auth.AccountCreatedFragment"
+        android:label="Account Created"
+        tools:layout="@layout/fragment_account_created">
+        <action
+            android:id="@+id/action_accountCreatedFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <!-- Sign Up -->
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.futurescript.ui.auth.SignupFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_signup">
+        <action
+            android:id="@+id/action_signupFragment_to_accountCreatedFragment"
+            app:destination="@id/accountCreatedFragment"/>
+    </fragment>
+
+    <!-- Home -->
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.futurescript.ui.inbox.LettersListFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_letters_list">
+        <action
+            android:id="@+id/action_homeFragment_to_landingFragment"
+            app:destination="@id/landingFragment"/>
+    </fragment>
+
+    <!-- Compose -->
+    <fragment
+        android:id="@+id/composeFragment"
+        android:name="com.example.futurescript.ui.compose.ComposeFragment"
+        android:label="Compose"
+        tools:layout="@layout/fragment_compose"/>
+
+    <!-- Sent Confirmation -->
+    <fragment
+        android:id="@+id/sentConfirmationFragment"
+        android:name="com.example.futurescript.ui.confirm.SentConfirmationFragment"
+        android:label="Sent Confirmation"
+        tools:layout="@layout/fragment_sent_confirmation"/>
 
     <!-- Message Notification (envelope screen for later) -->
     <fragment

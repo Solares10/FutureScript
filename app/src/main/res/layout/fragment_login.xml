@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@id/signInText" />
 
         <EditText
-            android:id="@+id/emailInput"
+            android:id="@+id/emailEditText"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"
@@ -107,7 +107,7 @@
             app:layout_constraintTop_toBottomOf="@id/emailIcon" />
 
         <EditText
-            android:id="@+id/passwordInput"
+            android:id="@+id/passwordEditText"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="5dp"

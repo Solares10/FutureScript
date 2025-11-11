@@ -1,16 +1,24 @@
 package com.example.futurescript.viewmodel
 
+import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.futurescript.data.database.entities.Letter
 import com.example.futurescript.data.repository.LetterRepository
+import com.example.futurescript.workers.scheduleDelivery
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LetterViewModel(
-    private val repo: LetterRepository
+@HiltViewModel
+class LetterViewModel @Inject constructor(
+    private val repo: LetterRepository,
+    private val app: Application
 ): ViewModel() {
 
     // Flow of all letters (sorted by delivery time)
@@ -26,13 +34,14 @@ class LetterViewModel(
     // Basic CRUD operations
     @RequiresApi(Build.VERSION_CODES.O)
     fun insert(title: String, message: String, deliverAt: Long) {
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val newLetter = Letter(
                 title = title.trim(),
                 message = message.trim(),
                 deliverAtEpochSec = deliverAt
             )
-            repo.insert(newLetter)
+            val id = repo.insertLocal(newLetter)
+            scheduleDelivery(app, id, deliverAt, message)
         }
     }
 

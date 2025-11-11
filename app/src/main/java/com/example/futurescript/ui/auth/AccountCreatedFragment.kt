@@ -11,13 +11,19 @@ import com.example.futurescript.databinding.FragmentAccountCreatedBinding
 
 class AccountCreatedFragment : Fragment() {
     private var _b: FragmentAccountCreatedBinding? = null
+
     private val b get() = _b!!
+
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
-        _b = FragmentAccountCreatedBinding.inflate(i, c, false); return b.root
+        _b = FragmentAccountCreatedBinding.inflate(i, c, false)
+        return b.root
     }
     override fun onViewCreated(v: View, s: Bundle?) {
+        super.onViewCreated(v, s)
+
         b.loginPageBtn.setOnClickListener {
-            //findNavController().navigate(R.id.action_accountCreated_to_login)
+            // Navigate back to LoginFragment
+            findNavController().navigate(R.id.action_accountCreatedFragment_to_loginFragment)
         }
     }
     override fun onDestroyView() { _b = null; super.onDestroyView() }

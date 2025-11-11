@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#F8E1E8">
 
+
     <!-- RecyclerView for showing letters -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lettersRecycler"

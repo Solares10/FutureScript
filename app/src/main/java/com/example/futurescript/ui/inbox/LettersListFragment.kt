@@ -5,16 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.futurescript.R
-import com.example.futurescript.data.database.AppDatabase
 import com.example.futurescript.data.database.entities.Letter
-import com.example.futurescript.data.repository.LetterRepository
 import com.example.futurescript.databinding.FragmentLettersListBinding
 import com.example.futurescript.databinding.ItemLetterBinding
+import com.example.futurescript.viewmodel.AuthViewModel
+import com.example.futurescript.viewmodel.LetterViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -25,11 +26,17 @@ import android.view.ViewGroup as VG
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LettersListFragment : Fragment() {
     private var _b: FragmentLettersListBinding? = null
     private val b get() = _b!!
-    private lateinit var repo: LetterRepository
+
+    // ViewModel for authentication and database access
+    // private val authViewModel: AuthViewModel by viewModels()         // Does not have logout button
+    private val letterViewModel: LetterViewModel by viewModels()
+
     private val adapter = LettersAdapter()
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
@@ -38,19 +45,26 @@ class LettersListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        repo = LetterRepository(AppDatabase.get(requireContext()).letterDao())
+        super.onViewCreated(view, savedInstanceState)
+
         b.lettersRecycler.layoutManager = LinearLayoutManager(requireContext())
         b.lettersRecycler.addItemDecoration(
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
         b.lettersRecycler.adapter = adapter
 
+        // Floating action button -> compose screen
         b.fab.setOnClickListener {
-            //findNavController().navigate(R.id.composeFragment)
+            findNavController().navigate(R.id.composeFragment)
         }
 
+        // Observe letters
         viewLifecycleOwner.lifecycleScope.launch {
-            repo.lettersFlow().collectLatest { list -> adapter.submitList(list) }
+            letterViewModel.allLetters.collectLatest { list ->
+                adapter.submitList(list)
+                // TODO: will wait for frontend to finish with screens
+                // b.emptyView.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+            }
         }
     }
 
@@ -70,9 +84,9 @@ class LettersAdapter : ListAdapter<Letter, LettersAdapter.VH>(DIFF) {
     override fun onCreateViewHolder(p: VG, v: Int) =
         VH(ItemLetterBinding.inflate(LI.from(p.context), p, false))
     override fun onBindViewHolder(h: VH, pos: Int) {
-        val L = getItem(pos)
-        h.b.messagePreview.text = L.message.take(80)
-        h.b.date.text = df.format(Instant.ofEpochSecond(L.deliverAtEpochSec))
-        h.b.status.text = if (L.delivered) "Delivered" else "Scheduled"
+        val l = getItem(pos)
+        h.b.messagePreview.text = l.message.take(80)
+        h.b.date.text = df.format(Instant.ofEpochSecond(l.deliverAtEpochSec))
+        h.b.status.text = if (l.delivered) "Delivered" else "Scheduled"
     }
 }
