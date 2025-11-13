@@ -7,14 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.futurescript.databinding.FragmentLoginBinding
 import com.example.futurescript.R
 import com.example.futurescript.data.auth.AuthState
+import com.example.futurescript.databinding.FragmentLoginBinding
 import com.example.futurescript.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -55,23 +58,25 @@ class LoginFragment : Fragment() {
         }
 
         // ✅ Observe authentication state
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            authViewModel.authState.collectLatest { state ->
-                when (state) {
-                    is AuthState.Loading -> setLoading(true)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                authViewModel.authState.collectLatest { state ->
+                    when (state) {
+                        is AuthState.Loading -> setLoading(true)
 
-                    is AuthState.Authenticated -> {
-                        setLoading(false)
-                        Toast.makeText(requireContext(), "Welcome, ${state.user.email}", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_lettersListFragment)
+                        is AuthState.Authenticated -> {
+                            setLoading(false)
+                            Toast.makeText(requireContext(), "Welcome, ${state.user.email}", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_loginFragment_to_lettersListFragment)
+                        }
+
+                        is AuthState.Error -> {
+                            setLoading(false)
+                            Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is AuthState.Unauthenticated -> setLoading(false)
                     }
-
-                    is AuthState.Error -> {
-                        setLoading(false)
-                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
-                    }
-
-                    is AuthState.Unauthenticated -> setLoading(false)
                 }
             }
         }
@@ -88,4 +93,3 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 }
-
