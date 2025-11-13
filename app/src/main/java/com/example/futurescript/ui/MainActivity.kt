@@ -1,16 +1,12 @@
 package com.example.futurescript.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.futurescript.databinding.ActivityMainBinding
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.appcompat.app.AppCompatActivity
+import com.example.futurescript.R
 
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-    private lateinit var b: ActivityMainBinding
+class UIMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        b = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(b.root)
+        setContentView(R.layout.activity_main)
     }
 }

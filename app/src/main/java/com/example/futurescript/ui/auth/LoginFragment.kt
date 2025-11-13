@@ -11,75 +11,73 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.futurescript.databinding.FragmentLoginBinding
 import com.example.futurescript.R
-import com.example.futurescript.viewmodel.AuthViewModel
 import com.example.futurescript.data.auth.AuthState
+import com.example.futurescript.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 
-// LoginFragment.kt
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    // View Binding
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    // ViewModel (Hilt handles injection)
     private val authViewModel: AuthViewModel by viewModels()
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
 
-        // Handle Login Button click
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // ✅ Handle Login Button
         binding.loginButton.setOnClickListener {
-            // TODO: Add your login logic here
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                authViewModel.login(email,password)
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(requireContext(), "Please fill out both fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
-            else {
-                Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()
-            }
+
+            authViewModel.login(email, password)
         }
 
-        // Handle Sign Up Text click
+        // ✅ Navigate to Sign Up
         binding.signUpText.setOnClickListener {
-            // Optional navigation (requires navigation graph)
             findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
 
+        // ✅ Observe authentication state
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             authViewModel.authState.collectLatest { state ->
                 when (state) {
-                    is AuthState.Loading -> showLoading(true)
+                    is AuthState.Loading -> setLoading(true)
 
                     is AuthState.Authenticated -> {
-                        showLoading(false)
-                        Toast.makeText(requireContext(), "Welcome ${state.user.displayName}!", Toast.LENGTH_SHORT).show()
+                        setLoading(false)
+                        Toast.makeText(requireContext(), "Welcome, ${state.user.email}", Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     }
 
                     is AuthState.Error -> {
-                        showLoading(false)
+                        setLoading(false)
                         Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     }
 
-                    is AuthState.Unauthenticated -> showLoading(false)
+                    is AuthState.Unauthenticated -> setLoading(false)
                 }
             }
         }
-
-        return view
     }
 
-    private fun showLoading(isLoading: Boolean) {
+    private fun setLoading(isLoading: Boolean) {
         binding.loginButton.isEnabled = !isLoading
         binding.emailEditText.isEnabled = !isLoading
         binding.passwordEditText.isEnabled = !isLoading
@@ -90,3 +88,4 @@ class LoginFragment : Fragment() {
         _binding = null
     }
 }
+

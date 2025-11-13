@@ -3,8 +3,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
-    alias(libs.plugins.google.gms.google.services)
+    id("com.google.gms.google-services") // ✅ no version here
 }
+
 
 android {
     namespace = "com.example.futurescript"

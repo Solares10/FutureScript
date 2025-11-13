@@ -2,7 +2,7 @@ package com.example.futurescript.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.futurescript.data.repository.UserRepository
+import com.example.futurescript.data.auth.AuthManager
 import com.example.futurescript.data.auth.AuthState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,25 +12,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val authManager: AuthManager
 ) : ViewModel() {
+
     private val _authState = MutableStateFlow<AuthState>(AuthState.Unauthenticated)
     val authState = _authState.asStateFlow()
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _authState.value = AuthState.Loading
-            try {
-                val user = userRepository.login(email, password)
-                if (user != null) {
-                    _authState.value = AuthState.Authenticated(user)
-                }
-                else {
-                    _authState.value = AuthState.Error("Login failed: Invalid credentials.")
-                }
-            }
-            catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Login failed.")
+            val user = authManager.login(email, password)
+            if (user != null) {
+                _authState.value = AuthState.Authenticated(user)
+            } else {
+                _authState.value = AuthState.Error("Incorrect email or password.")
             }
         }
     }
@@ -38,23 +33,18 @@ class AuthViewModel @Inject constructor(
     fun signUp(email: String, password: String) {
         viewModelScope.launch {
             _authState.value = AuthState.Loading
-            try {
-                val user = userRepository.signUp(email, password)
-                if (user != null) {
-                    _authState.value = AuthState.Authenticated(user)
-                }
-                else {
-                    _authState.value = AuthState.Error("Signup failed: User may already exist.")
-                }
-            }
-            catch (e: Exception) {
-                _authState.value = AuthState.Error(e.message ?: "Signup failed.")
+            val user = authManager.signUp(email, password)
+            if (user != null) {
+                _authState.value = AuthState.Authenticated(user)
+            } else {
+                _authState.value = AuthState.Error("Signup failed. Try again.")
             }
         }
     }
 
     fun logOut() {
-        userRepository.logOut()
+        authManager.logOut()
         _authState.value = AuthState.Unauthenticated
     }
 }
+
