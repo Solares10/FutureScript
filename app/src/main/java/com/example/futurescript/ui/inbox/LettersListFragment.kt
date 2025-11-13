@@ -58,6 +58,7 @@ class LettersListFragment : Fragment() {
             findNavController().navigate(R.id.composeFragment)
         }
 
+
         // Observe letters
         viewLifecycleOwner.lifecycleScope.launch {
             letterViewModel.allLetters.collectLatest { list ->

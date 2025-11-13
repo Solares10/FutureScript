@@ -173,4 +173,23 @@
 
     </LinearLayout>
 
+    <!-- Invisible helper views for Kotlin references -->
+    <TextView
+        android:id="@+id/messagePreview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

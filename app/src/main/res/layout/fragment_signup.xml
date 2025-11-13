@@ -166,10 +166,11 @@
             android:layout_marginTop="8dp"/>
 
         <!-- SIGN UP Button -->
+        <!-- Sign Up Button -->
         <Button
-            android:id="@+id/signUpButton"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:id="@+id/signupBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="SIGN UP"
             android:textSize="24sp"
             android:textColor="#FFFFFF"

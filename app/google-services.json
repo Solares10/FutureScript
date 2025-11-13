@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "869620186298",
-    "project_id": "futurescript-1bf71",
-    "storage_bucket": "futurescript-1bf71.firebasestorage.app"
+    "project_number": "427488305279",
+    "project_id": "futurescript-7164e",
+    "storage_bucket": "futurescript-7164e.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:869620186298:android:7abe7b771fc7227e355683",
+        "mobilesdk_app_id": "1:427488305279:android:6cef968fa198c96284df4a",
         "android_client_info": {
           "package_name": "com.example.futurescript"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBMtihsxGCUJ696lBhg6PpauQrbYvT3ivU"
+          "current_key": "AIzaSyAildTjDwb5ovTJcNejn-Pv1l5X2mXHePc"
         }
       ],
       "services": {
