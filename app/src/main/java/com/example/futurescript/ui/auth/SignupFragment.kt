@@ -22,7 +22,7 @@ class SignupFragment : Fragment() {
         _b = FragmentSignupBinding.inflate(i, c, false); return b.root
     }
     override fun onViewCreated(v: View, s: Bundle?) {
-        b.signUpButton.setOnClickListener {
+        b.signupBtn.setOnClickListener {
            findNavController().navigate(R.id.action_signupFragment_to_accountCreatedFragment)
         }
     }

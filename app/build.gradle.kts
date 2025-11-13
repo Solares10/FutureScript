@@ -58,7 +58,7 @@ android {
 
 dependencies {
     // AndroidX core
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0")
@@ -77,11 +77,11 @@ dependencies {
     // Room (with kapt)
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("com.google.firebase:firebase-auth:23.0.0")
-    implementation(libs.androidx.credentials)
-    implementation(libs.androidx.credentials.play.services.auth)
-    implementation(libs.googleid)
+    implementation("androidx.credentials:credentials:1.3.0-alpha02")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0-alpha02")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
@@ -95,8 +95,6 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.47")
     kapt("com.google.dagger:hilt-android-compiler:2.47")
 
-    // ViewModel injection support
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // OkHttp + Logging Interceptor
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
