@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.shape.MaterialShapeDrawable
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:shape="rectangle"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.FutureScript.RoundedButton"
+    android:tintMode="src_in">
+
+    <gradient
+        android:type="linear"
+        android:angle="90"
+        android:startColor="@color/fs_pink"
+        android:endColor="@color/fs_accent"
+        android:useLevel="false" />
+</com.google.android.material.shape.MaterialShapeDrawable>

@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="fs_pink_bg">#F6D4DA</color>
-    <color name="fs_pink">#F1BFC8</color>
-    <color name="fs_accent">#EAA0AE</color>
-    <color name="fs_text">#FFFFFF</color>
-    <color name="fs_ink">#6F5A5E</color>
-    <color name="black">#000000</color>
+    <!-- Core theme colors -->
+    <color name="teal_700">#00897B</color>
+    <color name="teal_200">#80CBC4</color>
+    <color name="purple_200">#CE93D8</color>
+
+    <!-- Custom Future Script brand colors -->
+    <color name="fs_pink">#F2BBC4</color>
+    <color name="fs_accent">#F7D1D7</color>
+    <color name="fs_text">#4A4A4A</color>
+
+    <!-- Optional neutrals -->
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- Background tones -->
+    <color name="pastel_pink_light">#F7D1D7</color>
+    <color name="pastel_pink_dark">#F2BBC4</color>
+    <color name="background_beige">#ECD9DC</color>
 </resources>
+
