@@ -24,8 +24,8 @@
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_loginFragment_to_lettersListFragment"
+            app:destination="@id/lettersListFragment" />
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
@@ -55,13 +55,19 @@
 
     <!-- Home -->
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/lettersListFragment"
         android:name="com.example.futurescript.ui.inbox.LettersListFragment"
-        android:label="Home"
+        android:label="Letters List"
         tools:layout="@layout/fragment_letters_list">
         <action
-            android:id="@+id/action_homeFragment_to_landingFragment"
+            android:id="@+id/action_lettersListFragment_to_landingFragment"
             app:destination="@id/landingFragment"/>
+        <action
+            android:id="@+id/action_lettersListFragment_to_itemLetterFragment"
+            app:destination="@id/itemLetterFragment"/>
+        <action
+            android:id="@+id/action_lettersListFragment_to_composeFragment"
+            app:destination="@id/composeFragment"/>
     </fragment>
 
     <!-- Compose -->
@@ -70,6 +76,19 @@
         android:name="com.example.futurescript.ui.compose.ComposeFragment"
         android:label="Compose"
         tools:layout="@layout/fragment_compose"/>
+
+    <!-- Item Letter -->
+    <fragment
+        android:id="@+id/itemLetterFragment"
+        android:name="com.example.futurescript.ui.item.ItemLetterFragment"
+        android:label="Item Letter"
+        tools:layout="@layout/item_letter">
+
+        <argument
+            android:name="letterId"
+            app:argType="long" />
+    </fragment>
+
 
     <!-- Sent Confirmation -->
     <fragment

@@ -63,7 +63,7 @@ class LoginFragment : Fragment() {
                     is AuthState.Authenticated -> {
                         setLoading(false)
                         Toast.makeText(requireContext(), "Welcome, ${state.user.email}", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        findNavController().navigate(R.id.action_loginFragment_to_lettersListFragment)
                     }
 
                     is AuthState.Error -> {

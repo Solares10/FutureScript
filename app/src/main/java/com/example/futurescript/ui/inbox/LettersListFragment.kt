@@ -37,7 +37,10 @@ class LettersListFragment : Fragment() {
     // private val authViewModel: AuthViewModel by viewModels()         // Does not have logout button
     private val letterViewModel: LetterViewModel by viewModels()
 
-    private val adapter = LettersAdapter()
+    private val adapter = LettersAdapter { clickedLetter ->
+        val action = LettersListFragmentDirections.actionLettersListFragmentToItemLetterFragment(clickedLetter.id)
+        findNavController().navigate(action)
+    }
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
         _b = FragmentLettersListBinding.inflate(i, c, false)
@@ -55,7 +58,7 @@ class LettersListFragment : Fragment() {
 
         // Floating action button -> compose screen
         b.addButton.setOnClickListener {
-            findNavController().navigate(R.id.composeFragment)
+            findNavController().navigate(R.id.action_lettersListFragment_to_composeFragment)
         }
 
 
@@ -74,7 +77,9 @@ class LettersListFragment : Fragment() {
 
 private val df = DateTimeFormatter.ofPattern("MMM d, yyyy").withZone(ZoneId.systemDefault())
 
-class LettersAdapter : ListAdapter<Letter, LettersAdapter.VH>(DIFF) {
+class LettersAdapter(
+    private val onLetterClicked: (Letter) -> Unit
+) : ListAdapter<Letter, LettersAdapter.VH>(DIFF) {
     companion object {
         val DIFF = object : DiffUtil.ItemCallback<Letter>() {
             override fun areItemsTheSame(o: Letter, n: Letter) = o.id == n.id
@@ -82,10 +87,18 @@ class LettersAdapter : ListAdapter<Letter, LettersAdapter.VH>(DIFF) {
         }
     }
     class VH(val b: ItemLetterBinding) : RecyclerView.ViewHolder(b.root)
+
     override fun onCreateViewHolder(p: VG, v: Int) =
         VH(ItemLetterBinding.inflate(LI.from(p.context), p, false))
+
     override fun onBindViewHolder(h: VH, pos: Int) {
         val l = getItem(pos)
+
+        // Set an OnClickListener for the entire item view
+        h.itemView.setOnClickListener {
+            onLetterClicked(l)
+        }
+
         h.b.messagePreview.text = l.message.take(80)
         h.b.date.text = df.format(Instant.ofEpochSecond(l.deliverAtEpochSec))
         h.b.status.text = if (l.delivered) "Delivered" else "Scheduled"
