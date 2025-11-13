@@ -54,7 +54,7 @@ class LettersListFragment : Fragment() {
         b.lettersRecycler.adapter = adapter
 
         // Floating action button -> compose screen
-        b.fab.setOnClickListener {
+        b.addButton.setOnClickListener {
             findNavController().navigate(R.id.composeFragment)
         }
 
