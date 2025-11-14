@@ -1,16 +1,11 @@
 package com.example.futurescript.viewmodel
 
 import android.app.Application
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.futurescript.data.database.entities.Letter
 import com.example.futurescript.data.repository.LetterRepository
-import com.example.futurescript.workers.scheduleDelivery
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,11 +13,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LetterViewModel @Inject constructor(
     private val repo: LetterRepository,
-    private val app: Application
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
-    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
 
 
     // Flow of all letters (sorted by delivery time)
@@ -44,7 +37,7 @@ class LetterViewModel @Inject constructor(
                 _uiState.value = UiState.Success
             }
             catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to sync letters.")
+                _uiState.value = UiState.Error(e.message ?: "Failed to sync letters.")
             }
         }
     }
@@ -56,18 +49,6 @@ class LetterViewModel @Inject constructor(
     fun delete(letter: Letter) {
         viewModelScope.launch {
             repo.delete(letter)
-        }
-    }
-
-    fun markDelivered(id: Long) {
-        viewModelScope.launch {
-            repo.markDelivered(id)
-        }
-    }
-
-    fun deleteAll() {
-        viewModelScope.launch {
-            repo.deleteAll()
         }
     }
 

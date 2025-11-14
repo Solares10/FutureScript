@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,7 +16,6 @@ import com.example.futurescript.R
 import com.example.futurescript.data.database.entities.Letter
 import com.example.futurescript.databinding.FragmentLettersListBinding
 import com.example.futurescript.databinding.ItemLetterBinding
-import com.example.futurescript.viewmodel.AuthViewModel
 import com.example.futurescript.viewmodel.LetterViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -101,7 +99,7 @@ class LettersListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _b = null;
+        _b = null
     }
 }
 
