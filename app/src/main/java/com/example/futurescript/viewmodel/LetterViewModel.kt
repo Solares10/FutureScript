@@ -1,6 +1,5 @@
 package com.example.futurescript.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.futurescript.data.database.entities.Letter
