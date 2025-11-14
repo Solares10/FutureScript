@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.futurescript.data.network.model.letter
 import com.example.futurescript.viewmodel.LetterViewModel
 import com.example.futurescript.databinding.ItemLetterBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -27,7 +29,7 @@ class ItemLetterFragment: Fragment() {
     private val b get() = _b!!
 
     // Hilt will provide the ViewModel instance.
-    private val letterViewModel: LetterViewModel by viewModels()
+    private val letterViewModel: LetterViewModel by activityViewModels()
 
     // safe-args delegate to get the letterId passed from the previous fragment.
     private val args: ItemLetterFragmentArgs by navArgs()
@@ -97,6 +99,7 @@ class ItemLetterFragment: Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        letterViewModel.clearSelectedLetter()
         _b = null
     }
 

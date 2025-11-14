@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import java.time.Instant
 
 @Entity
-data class Letter @RequiresApi(Build.VERSION_CODES.O) constructor(
+data class Letter(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val message: String,
     val deliverAtEpochSec: Long,

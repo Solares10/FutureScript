@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,11 +38,26 @@ class LettersListFragment : Fragment() {
 
     // ViewModel for authentication and database access
     // private val authViewModel: AuthViewModel by viewModels()         // Does not have logout button
-    private val letterViewModel: LetterViewModel by viewModels()
+    private val letterViewModel: LetterViewModel by activityViewModels()
+
+    private var lastClickTime: Long = 0
+
+    private fun onSafeClick(action: () -> Unit) {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastClickTime >= 500) {
+            lastClickTime = currentTime
+            action()
+        }
+    }
 
     private val adapter = LettersAdapter { clickedLetter ->
-        val action = LettersListFragmentDirections.actionLettersListFragmentToItemLetterFragment(clickedLetter.id)
-        findNavController().navigate(action)
+        onSafeClick {
+            val action =
+                LettersListFragmentDirections.actionLettersListFragmentToItemLetterFragment(
+                    clickedLetter.id
+                )
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
@@ -58,21 +76,33 @@ class LettersListFragment : Fragment() {
 
         // Floating action button -> compose screen
         b.addButton.setOnClickListener {
-            findNavController().navigate(R.id.action_lettersListFragment_to_composeFragment)
+            onSafeClick {
+                findNavController().navigate(R.id.action_lettersListFragment_to_composeFragment)
+            }
         }
-
 
         // Observe letters
         viewLifecycleOwner.lifecycleScope.launch {
-            letterViewModel.allLetters.collectLatest { list ->
-                adapter.submitList(list)
-                // TODO: will wait for frontend to finish with screens
-                // b.emptyView.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                letterViewModel.letters.collectLatest { list ->
+                    adapter.safeSubmitList(list)
+                    if (list.isEmpty()) {
+                        b.emptyStateGroup.visibility = View.VISIBLE
+                        b.lettersRecycler.visibility = View.GONE
+                    }
+                    else {
+                        b.emptyStateGroup.visibility = View.GONE
+                        b.lettersRecycler.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }
 
-    override fun onDestroyView() { _b = null; super.onDestroyView() }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _b = null;
+    }
 }
 
 private val df = DateTimeFormatter.ofPattern("MMM d, yyyy").withZone(ZoneId.systemDefault())
@@ -80,6 +110,25 @@ private val df = DateTimeFormatter.ofPattern("MMM d, yyyy").withZone(ZoneId.syst
 class LettersAdapter(
     private val onLetterClicked: (Letter) -> Unit
 ) : ListAdapter<Letter, LettersAdapter.VH>(DIFF) {
+
+    private var recyclerView: RecyclerView? = null
+
+    override fun onAttachedToRecyclerView(rv: RecyclerView) {
+        super.onAttachedToRecyclerView(rv)
+        recyclerView = rv
+    }
+
+    override fun onDetachedFromRecyclerView(rv: RecyclerView) {
+        super.onDetachedFromRecyclerView(rv)
+        recyclerView = null
+    }
+
+    fun safeSubmitList(list: List<Letter>?) {
+        if (recyclerView?.isAttachedToWindow == true) {
+            submitList(list)
+        }
+    }
+
     companion object {
         val DIFF = object : DiffUtil.ItemCallback<Letter>() {
             override fun areItemsTheSame(o: Letter, n: Letter) = o.id == n.id

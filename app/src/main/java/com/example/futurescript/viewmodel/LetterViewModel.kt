@@ -21,34 +21,37 @@ class LetterViewModel @Inject constructor(
     private val app: Application
 ): ViewModel() {
 
+    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
+    val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+
+
     // Flow of all letters (sorted by delivery time)
-    val allLetters: StateFlow<List<Letter>> =
-        repo.lettersFlow()
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+    val letters: StateFlow<List<Letter>> = repo.lettersFlow()
+        .stateIn(
+            scope = viewModelScope,
+            started =SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList())
 
     init {
+        refreshLetters()
+    }
+
+    fun refreshLetters() {
         viewModelScope.launch {
-            repo.syncLetters()
+            _uiState.value = UiState.Loading
+            try {
+                repo.syncLetters()
+                _uiState.value = UiState.Success
+            }
+            catch (e: Exception) {
+                _uiState.value = UiState.Error("Failed to sync letters.")
+            }
         }
     }
 
     // UI state for single message details
     private val _selectedLetter = MutableStateFlow<Letter?>(null)
     val selectedLetter: StateFlow<Letter?> = _selectedLetter.asStateFlow()
-
-
-    // Basic CRUD operations
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun insert(message: String, deliverAt: Long) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val newLetter = Letter(
-                message = message.trim(),
-                deliverAtEpochSec = deliverAt
-            )
-            val id = repo.insertLocal(newLetter)
-            scheduleDelivery(app, id, deliverAt, message)
-        }
-    }
 
     fun delete(letter: Letter) {
         viewModelScope.launch {
@@ -74,4 +77,15 @@ class LetterViewModel @Inject constructor(
             _selectedLetter.value = letter
         }
     }
+
+    fun clearSelectedLetter() {
+        _selectedLetter.value = null
+
+    }
+}
+
+sealed interface UiState {
+    data object Loading: UiState
+    data object Success: UiState
+    data class Error(val message: String): UiState
 }

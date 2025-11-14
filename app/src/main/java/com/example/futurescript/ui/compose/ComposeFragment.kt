@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.futurescript.R
-import com.example.futurescript.viewmodel.LetterViewModel
+import com.example.futurescript.viewmodel.ComposeViewModel
 import com.example.futurescript.databinding.FragmentComposeBinding
 import com.example.futurescript.util.localDateToEpochSeconds
 import com.example.futurescript.util.showDatePicker
@@ -23,7 +23,8 @@ class ComposeFragment : Fragment() {
 
     private var _binding: FragmentComposeBinding? = null
     private val binding get() = _binding!!
-    private val letterViewModel: LetterViewModel by viewModels()
+
+    private val composeViewModel: ComposeViewModel by viewModels()
     private var selectedDate: LocalDate? = null
 
     override fun onCreateView(
@@ -35,9 +36,16 @@ class ComposeFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            Toast.makeText(requireContext(),
+                "This feature requires Android 8.0 or higher",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
 
         // Open date picker
         binding.dateField.setOnClickListener {
@@ -54,13 +62,12 @@ class ComposeFragment : Fragment() {
             val epoch = localDateToEpochSeconds(date)
 
             if (messageText.isNotBlank()) {
-                letterViewModel.insert(messageText, epoch)
+                composeViewModel.insert(messageText, epoch)
                 findNavController().navigate(R.id.sentConfirmationFragment)
             } else {
                 Toast.makeText(context, "Please enter a message", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 
     override fun onDestroyView() {
