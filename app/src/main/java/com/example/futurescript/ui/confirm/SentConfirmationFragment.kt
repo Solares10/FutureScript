@@ -15,10 +15,10 @@ class SentConfirmationFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_sent_confirmation, container, false)
 
-        val backButton = view.findViewById<MaterialButton>(R.id.backToLettersBtn)
+        val backButton = view.findViewById<MaterialButton>(R.id.backToLettersButton)
         backButton.setOnClickListener {
             findNavController().navigate(R.id.action_sentConfirmationFragment_to_lettersListFragment)
         }

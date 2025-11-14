@@ -5,13 +5,12 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/landingFragment">
 
-    <!-- Landing Screen -->
+    <!-- Landing -->
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.example.futurescript.ui.landing.LandingFragment"
         android:label="Landing"
         tools:layout="@layout/fragment_landing">
-
         <action
             android:id="@+id/action_landingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -23,26 +22,12 @@
         android:name="com.example.futurescript.ui.auth.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
-
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
-
         <action
             android:id="@+id/action_loginFragment_to_lettersListFragment"
             app:destination="@id/lettersListFragment" />
-    </fragment>
-
-    <!-- Account Created -->
-    <fragment
-        android:id="@+id/accountCreatedFragment"
-        android:name="com.example.futurescript.ui.auth.AccountCreatedFragment"
-        android:label="Account Created"
-        tools:layout="@layout/fragment_account_created">
-
-        <action
-            android:id="@+id/action_accountCreatedFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
 
     <!-- Sign Up -->
@@ -51,10 +36,20 @@
         android:name="com.example.futurescript.ui.auth.SignupFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_signup">
-
         <action
             android:id="@+id/action_signupFragment_to_accountCreatedFragment"
             app:destination="@id/accountCreatedFragment" />
+    </fragment>
+
+    <!-- Account Created -->
+    <fragment
+        android:id="@+id/accountCreatedFragment"
+        android:name="com.example.futurescript.ui.auth.AccountCreatedFragment"
+        android:label="Account Created"
+        tools:layout="@layout/fragment_account_created">
+        <action
+            android:id="@+id/action_accountCreatedFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <!-- Letters List -->
@@ -63,26 +58,20 @@
         android:name="com.example.futurescript.ui.inbox.LettersListFragment"
         android:label="Letters"
         tools:layout="@layout/fragment_letters_list">
-
-        <!-- Navigate to Compose New Letter -->
         <action
             android:id="@+id/action_lettersListFragment_to_composeFragment"
             app:destination="@id/composeFragment" />
-
-        <!-- Navigate to View Sent Letter List -->
         <action
             android:id="@+id/action_lettersListFragment_to_sentLettersFragment"
             app:destination="@id/sentLettersFragment" />
     </fragment>
 
-    <!-- Compose Letter -->
+    <!-- Compose -->
     <fragment
         android:id="@+id/composeFragment"
         android:name="com.example.futurescript.ui.compose.ComposeFragment"
         android:label="Compose"
         tools:layout="@layout/fragment_compose">
-
-        <!-- ✅ Navigate to Sent Confirmation after sending -->
         <action
             android:id="@+id/action_composeFragment_to_sentConfirmationFragment"
             app:destination="@id/sentConfirmationFragment" />
@@ -94,8 +83,6 @@
         android:name="com.example.futurescript.ui.confirm.SentConfirmationFragment"
         android:label="Sent Confirmation"
         tools:layout="@layout/fragment_sent_confirmation">
-
-        <!-- ✅ Navigate back to list after confirmation -->
         <action
             android:id="@+id/action_sentConfirmationFragment_to_lettersListFragment"
             app:destination="@id/lettersListFragment" />
@@ -104,7 +91,8 @@
     <!-- Sent Letters -->
     <fragment
         android:id="@+id/sentLettersFragment"
-        android:name="com.example.futurescript.ui.inbox.SentLettersFragment"
+        android:name="com.example.futurescript.ui.sent.SentLettersFragment"
         android:label="Sent Letters"
         tools:layout="@layout/fragment_sent_letters" />
+
 </navigation>

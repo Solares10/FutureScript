@@ -1,165 +1,22 @@
 package com.example.futurescript.viewmodel
 
-<<<<<<< HEAD
-import android.app.Application
-=======
->>>>>>> origin/main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.futurescript.data.database.entities.Letter
-import com.example.futurescript.data.repository.LetterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-<<<<<<< HEAD
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
-=======
-import kotlinx.coroutines.flow.*
->>>>>>> origin/main
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.futurescript.data.LetterRepository
 
 @HiltViewModel
 class LetterViewModel @Inject constructor(
-    private val repo: LetterRepository,
-<<<<<<< HEAD
-    private val app: Application
+    private val repository: LetterRepository
 ) : ViewModel() {
-=======
-): ViewModel() {
->>>>>>> origin/main
 
-    // --- UI loading/error state management ---
-    private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
-
-    // --- All letters live flow (auto-updates as DB changes) ---
-    val letters: StateFlow<List<Letter>> = repo.watchAllLetters()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
-
-    // --- Currently selected letter (for detail screen) ---
-    private val _selectedLetter = MutableStateFlow<Letter?>(null)
-    val selectedLetter: StateFlow<Letter?> = _selectedLetter.asStateFlow()
-
-    init {
-        refreshLetters()
-    }
-
-    // --- Refresh from repository (used to update UI state) ---
-    fun refreshLetters() {
+    fun insert(message: String, deliverAtEpochSec: Long) {
         viewModelScope.launch {
-            _uiState.value = UiState.Loading
-            try {
-                repo.syncLetters()
-                _uiState.value = UiState.Success
-<<<<<<< HEAD
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to sync letters: ${e.message}")
-=======
-            }
-            catch (e: Exception) {
-                _uiState.value = UiState.Error(e.message ?: "Failed to sync letters.")
->>>>>>> origin/main
-            }
+            repository.insertLetter(message, deliverAtEpochSec)
         }
     }
 
-<<<<<<< HEAD
-    // --- Select and clear letter for viewing ---
-=======
-    // UI state for single message details
-    private val _selectedLetter = MutableStateFlow<Letter?>(null)
-    val selectedLetter: StateFlow<Letter?> = _selectedLetter.asStateFlow()
-
-    fun delete(letter: Letter) {
-        viewModelScope.launch {
-            repo.delete(letter)
-        }
-    }
-
->>>>>>> origin/main
-    fun selectLetter(id: Long) {
-        viewModelScope.launch {
-            _selectedLetter.value = repo.getLetter(id)
-        }
-    }
-
-    fun clearSelectedLetter() {
-        _selectedLetter.value = null
-    }
-
-    // --- Insert new letter ---
-    fun insert(
-        message: String,
-        deliverAtEpochSec: Long = System.currentTimeMillis() + 86_400_000L // 1 day default
-    ) {
-        viewModelScope.launch {
-            try {
-                val now = System.currentTimeMillis()
-                val newLetter = Letter(
-                    message = message,
-                    createdAtEpochSec = now,
-                    deliverAtEpochSec = deliverAtEpochSec,
-                    delivered = false
-                )
-                val newId = repo.insert(newLetter)
-
-                // ✅ Only schedule if insertion succeeded
-                if (newId > 0) {
-                    scheduleDelivery(app, newId, deliverAtEpochSec)
-                }
-
-                _uiState.value = UiState.Success
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to insert letter: ${e.message}")
-            }
-        }
-    }
-
-    // --- Delete single letter ---
-    fun delete(letter: Letter) {
-        viewModelScope.launch {
-            try {
-                repo.delete(letter)
-                _uiState.value = UiState.Success
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to delete letter: ${e.message}")
-            }
-        }
-    }
-
-    // --- Delete all letters ---
-    fun deleteAll() {
-        viewModelScope.launch {
-            try {
-                repo.deleteAll()
-                _uiState.value = UiState.Success
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to delete all letters: ${e.message}")
-            }
-        }
-    }
-
-    // --- Mark a letter as delivered ---
-    fun markDelivered(id: Long) {
-        viewModelScope.launch {
-            try {
-                repo.markDelivered(id)
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to mark delivered: ${e.message}")
-            }
-        }
-    }
-}
-
-// --- Simple UI state representation for observing from UI ---
-sealed interface UiState {
-    data object Loading : UiState
-    data object Success : UiState
-    data class Error(val message: String) : UiState
-}
+    fun getLetters() = repository.getAllLetters()
+}   // 👈 exactly one closing brace here

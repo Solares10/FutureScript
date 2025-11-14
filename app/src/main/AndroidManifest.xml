@@ -1,7 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- ===== App Permissions ===== -->
+    <!-- Notification permission (Android 13+) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Exact alarm scheduling (Android 12+) -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <!-- Android 14+ adds a new variant for exact alarms -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+    <!-- =============================================== -->
 
     <application
         android:name=".FutureScriptApp"
@@ -13,6 +23,25 @@
         android:theme="@style/Theme.FutureScript"
         android:enableOnBackInvokedCallback="true">
 
+        <!-- 🔔 BroadcastReceiver for letter notifications -->
+        <receiver
+            android:name=".utils.LetterNotificationReceiver"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="android.permission.BROADCAST_SCHEDULE_EXACT_ALARM">
+            <intent-filter>
+                <!-- Custom action name to match your ComposeFragment intent -->
+                <action android:name="com.example.futurescript.ACTION_SEND_LETTER" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 💌 Activity that shows the animated envelope and message -->
+        <activity
+            android:name=".ui.openletter.OpenLetterActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+
+        <!-- 🚀 Main launcher Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -23,5 +52,4 @@
         </activity>
 
     </application>
-
 </manifest>
