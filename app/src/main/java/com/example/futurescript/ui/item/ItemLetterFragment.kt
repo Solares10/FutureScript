@@ -10,6 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+<<<<<<< HEAD
+=======
+import androidx.navigation.fragment.navArgs
+import com.example.futurescript.viewmodel.LetterViewModel
+>>>>>>> origin/main
 import com.example.futurescript.databinding.ItemLetterBinding
 import com.example.futurescript.viewmodel.LetterViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
