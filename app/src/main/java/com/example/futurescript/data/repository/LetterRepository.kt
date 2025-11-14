@@ -2,55 +2,44 @@ package com.example.futurescript.data.repository
 
 import com.example.futurescript.data.database.dao.LetterDao
 import com.example.futurescript.data.database.entities.Letter
-import com.example.futurescript.data.network.model.LetterDto
-import com.example.futurescript.data.network.api.FutureScriptApiService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class LetterRepository @Inject constructor(
-    private val dao: LetterDao,
-    private val api: FutureScriptApiService
+    private val dao: LetterDao
 ) {
-    fun lettersFlow(): Flow<List<Letter>> = dao.watchAll()
+    // --- Watch all letters (sorted by delivery date) ---
+    fun watchAllLetters(): Flow<List<Letter>> = dao.watchAll()
 
-    suspend fun get(id: Long): Letter? = dao.get(id)
-
-    suspend fun insertLocal(letter: Letter) = dao.insert(letter)
-
-    // Fetches letters from the remote API, converts them to entities, and inserts them into the local database.
-    suspend fun syncLetters() {
-        try {
-            val response = api.getLetters()
-            if (response.isSuccessful) {
-                // Get list of DTOs from response body
-                val remoteLettersDto = response.body() ?: emptyList()
-                val localLetters = remoteLettersDto.map {dto -> dto.toEntity()}
-
-                if (localLetters.isNotEmpty()) {
-                    dao.insertAll(localLetters)
-                }
-            }
-        }
-        catch (e: Exception) {
-            e.printStackTrace()
-        }
+    // --- Insert new letter and return its new ID ---
+    suspend fun insert(letter: Letter): Long {
+        return dao.insert(letter)
     }
 
-    suspend fun delete(letter: Letter) = dao.delete(letter)
+    // --- Delete a single letter ---
+    suspend fun delete(letter: Letter) {
+        dao.delete(letter)
+    }
 
-    suspend fun markDelivered(id: Long) = dao.markDelivered(id)
+    // --- Delete all letters ---
+    suspend fun deleteAll() {
+        dao.deleteAll()
+    }
 
-    suspend fun deleteAll() = dao.deleteAll()
+    // --- Get a letter by ID ---
+    suspend fun getLetter(id: Long): Letter? {
+        return dao.get(id)
+    }
 
-}
+    // --- Mark a letter as delivered ---
+    suspend fun markDelivered(id: Long) {
+        dao.markDelivered(id)
+    }
 
-private fun LetterDto.toEntity(): Letter {
-    return Letter(
-        id = this.id,
-        message = this.message,
-        deliverAtEpochSec = this.deliverAtEpochSec,
-        createdAtEpochSec = this.createdAtEpochSec,
-        delivered = this.isDelivered
-    )
+    // --- Sync placeholder (if you add remote sync later) ---
+    suspend fun syncLetters() {
+        // Currently local only
+    }
 }

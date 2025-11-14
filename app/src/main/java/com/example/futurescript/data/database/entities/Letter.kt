@@ -1,16 +1,15 @@
 package com.example.futurescript.data.database.entities
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.Instant
 
-@Entity
+// ✅ Defines the "Letter" table for your Room database.
+@Entity(tableName = "Letter")
 data class Letter(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
     val message: String,
+    val createdAtEpochSec: Long,
     val deliverAtEpochSec: Long,
-    val createdAtEpochSec: Long = Instant.now().epochSecond,
     val delivered: Boolean = false
 )

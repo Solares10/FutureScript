@@ -7,35 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.futurescript.R
-import com.example.futurescript.databinding.FragmentSentConfirmationBinding
-import dagger.hilt.android.AndroidEntryPoint
+import com.google.android.material.button.MaterialButton
 
-@AndroidEntryPoint
 class SentConfirmationFragment : Fragment() {
-
-    private var _b: FragmentSentConfirmationBinding? = null
-    private val b get() = _b!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _b = FragmentSentConfirmationBinding.inflate(inflater, container, false)
-        return b.root
-    }
+        val view = inflater.inflate(R.layout.fragment_sent_confirmation, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // When the user taps the "HOME PAGE" button, navigate back
-        b.homeBtn.setOnClickListener {
-            findNavController().navigate(R.id.lettersListFragment)
+        val backButton = view.findViewById<MaterialButton>(R.id.backToLettersBtn)
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_sentConfirmationFragment_to_lettersListFragment)
         }
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _b = null
+        return view
     }
 }

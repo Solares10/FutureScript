@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#F2BBC4"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:elevation="4dp"
+    android:clipToOutline="true"
+    android:layout_marginHorizontal="24dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/letterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Future Letter"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/noticiatext_bold" />
+
+    <TextView
+        android:id="@+id/letterPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A short preview of the letter..."
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/noticiatext_regular"
+        android:layout_marginTop="4dp" />
+</LinearLayout>

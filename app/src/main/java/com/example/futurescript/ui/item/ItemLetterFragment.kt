@@ -6,15 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.example.futurescript.data.network.model.letter
-import com.example.futurescript.viewmodel.LetterViewModel
 import com.example.futurescript.databinding.ItemLetterBinding
+import com.example.futurescript.viewmodel.LetterViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,44 +20,44 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
-class ItemLetterFragment: Fragment() {
+class ItemLetterFragment : Fragment() {
 
-    private var _b: ItemLetterBinding? = null
-    private val b get() = _b!!
+    private var _binding: ItemLetterBinding? = null
+    private val binding get() = _binding!!
 
-    // Hilt will provide the ViewModel instance.
     private val letterViewModel: LetterViewModel by activityViewModels()
 
-    // safe-args delegate to get the letterId passed from the previous fragment.
-    private val args: ItemLetterFragmentArgs by navArgs()
+    // Temporary variable for letter ID until Safe Args is fixed
+    private var letterId: Long = -1L
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _b = ItemLetterBinding.inflate(inflater, container, false)
-        return b.root
+        _binding = ItemLetterBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        letterViewModel.selectLetter(args.letterId)
+        // ✅ Retrieve letterId manually from arguments
+        letterId = arguments?.getLong("letterId") ?: -1L
+        letterViewModel.selectLetter(letterId)
 
         setupClickListeners()
         observeLetter()
     }
 
     private fun setupClickListeners() {
-        b.backButton.setOnClickListener {
+        binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
 
-        b.deleteButton.setOnClickListener {
+        binding.deleteButton.setOnClickListener {
             showDeleteConfirmationDialog()
         }
-
     }
 
     private fun observeLetter() {
@@ -71,12 +68,11 @@ class ItemLetterFragment: Fragment() {
                         val formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy")
                             .withZone(ZoneId.systemDefault())
 
-                        b.dateSent.text =
+                        binding.dateSent.text =
                             formatter.format(Instant.ofEpochMilli(it.createdAtEpochSec))
-                        b.dateDeliver.text =
+                        binding.dateDeliver.text =
                             formatter.format(Instant.ofEpochMilli(it.deliverAtEpochSec))
-                        b.letterContent.text = it.message
-
+                        binding.letterContent.text = it.message
                     }
                 }
             }
@@ -100,9 +96,6 @@ class ItemLetterFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         letterViewModel.clearSelectedLetter()
-        _b = null
+        _binding = null
     }
-
-
-
 }

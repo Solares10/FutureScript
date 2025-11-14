@@ -1,59 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_sent_confirmation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECD9DC"
-    tools:context=".SentConfirmationFragment">
+    android:padding="24dp"
+    tools:context=".ui.confirm.SentConfirmationFragment">
 
-    <!-- Winged Envelope Image -->
+    <!-- Top Logo -->
     <ImageView
-        android:id="@+id/image_wings"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:id="@+id/logoImage"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:src="@drawable/logo_future_script"
+        android:contentDescription="Future Script Logo"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/envelope_with_wings"
-        android:src="@drawable/icon_wings"
-        app:layout_constraintBottom_toTopOf="@+id/text_confirmation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="48dp" />
 
-    <!-- Confirmation Text -->
+    <!-- Envelope Icon -->
+    <ImageView
+        android:id="@+id/envelopeIcon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/envelope_logo"
+        android:contentDescription="Envelope Icon"
+        app:layout_constraintTop_toBottomOf="@id/logoImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="56dp" />
 
-    <!-- Home Page Button Image -->
-
+    <!-- Confirmation Title -->
     <TextView
-        android:id="@+id/text_confirmation"
+        android:id="@+id/sentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Letter Sent!"
+        android:textSize="32sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/noticiatext_bold"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/envelopeIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/sentSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/noticiatext_bold"
-        android:text="Your letter is on the way!\nGo back to the home page\nto write more."
-        android:textAlignment="center"
+        android:text="Your letter has been sent to the future."
+        android:textSize="18sp"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:fontFamily="@font/noticiatext_regular"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/sentTitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_wings" />
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
 
-    <ImageButton
-        
-        android:id="@+id/homeBtn"
-        android:layout_width="226dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="36dp"
-        android:src="@drawable/icon_homepagebutton"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/home_page_button"
-        android:scaleType="fitXY"
-        app:layout_constraintTop_toBottomOf="@id/text_confirmation"
+    <!-- Delivery Info -->
+    <TextView
+        android:id="@+id/deliveryInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We’ll deliver it on your chosen date."
+        android:textSize="16sp"
+        android:textColor="#F7EEF0"
+        android:fontFamily="@font/noticiatext_regular"
+        app:layout_constraintTop_toBottomOf="@id/sentSubtitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!-- Back to Letters Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/backToLettersBtn"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="Back to Letters"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/noticiatext_bold"
+        app:backgroundTint="#F2BBC4"
+        app:cornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@id/deliveryInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="48dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

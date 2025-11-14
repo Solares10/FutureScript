@@ -5,17 +5,17 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/landingFragment">
 
-    <!-- Landing (first screen when app starts) -->
+    <!-- Landing Screen -->
     <fragment
         android:id="@+id/landingFragment"
         android:name="com.example.futurescript.ui.landing.LandingFragment"
         android:label="Landing"
         tools:layout="@layout/fragment_landing">
+
         <action
             android:id="@+id/action_landingFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-
 
     <!-- Login -->
     <fragment
@@ -23,12 +23,14 @@
         android:name="com.example.futurescript.ui.auth.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_lettersListFragment"
-            app:destination="@id/lettersListFragment" />
+
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+
+        <action
+            android:id="@+id/action_loginFragment_to_lettersListFragment"
+            app:destination="@id/lettersListFragment" />
     </fragment>
 
     <!-- Account Created -->
@@ -37,6 +39,7 @@
         android:name="com.example.futurescript.ui.auth.AccountCreatedFragment"
         android:label="Account Created"
         tools:layout="@layout/fragment_account_created">
+
         <action
             android:id="@+id/action_accountCreatedFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -48,60 +51,60 @@
         android:name="com.example.futurescript.ui.auth.SignupFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_signup">
+
         <action
             android:id="@+id/action_signupFragment_to_accountCreatedFragment"
-            app:destination="@id/accountCreatedFragment"/>
+            app:destination="@id/accountCreatedFragment" />
     </fragment>
 
-    <!-- Home -->
+    <!-- Letters List -->
     <fragment
         android:id="@+id/lettersListFragment"
         android:name="com.example.futurescript.ui.inbox.LettersListFragment"
-        android:label="Letters List"
+        android:label="Letters"
         tools:layout="@layout/fragment_letters_list">
-        <action
-            android:id="@+id/action_lettersListFragment_to_landingFragment"
-            app:destination="@id/landingFragment"/>
-        <action
-            android:id="@+id/action_lettersListFragment_to_itemLetterFragment"
-            app:destination="@id/itemLetterFragment"/>
+
+        <!-- Navigate to Compose New Letter -->
         <action
             android:id="@+id/action_lettersListFragment_to_composeFragment"
-            app:destination="@id/composeFragment"/>
+            app:destination="@id/composeFragment" />
+
+        <!-- Navigate to View Sent Letter List -->
+        <action
+            android:id="@+id/action_lettersListFragment_to_sentLettersFragment"
+            app:destination="@id/sentLettersFragment" />
     </fragment>
 
-    <!-- Compose -->
+    <!-- Compose Letter -->
     <fragment
         android:id="@+id/composeFragment"
         android:name="com.example.futurescript.ui.compose.ComposeFragment"
         android:label="Compose"
-        tools:layout="@layout/fragment_compose"/>
+        tools:layout="@layout/fragment_compose">
 
-    <!-- Item Letter -->
-    <fragment
-        android:id="@+id/itemLetterFragment"
-        android:name="com.example.futurescript.ui.item.ItemLetterFragment"
-        android:label="Item Letter"
-        tools:layout="@layout/item_letter">
-
-        <argument
-            android:name="letterId"
-            app:argType="long" />
+        <!-- ✅ Navigate to Sent Confirmation after sending -->
+        <action
+            android:id="@+id/action_composeFragment_to_sentConfirmationFragment"
+            app:destination="@id/sentConfirmationFragment" />
     </fragment>
-
 
     <!-- Sent Confirmation -->
     <fragment
         android:id="@+id/sentConfirmationFragment"
         android:name="com.example.futurescript.ui.confirm.SentConfirmationFragment"
         android:label="Sent Confirmation"
-        tools:layout="@layout/fragment_sent_confirmation"/>
+        tools:layout="@layout/fragment_sent_confirmation">
 
-    <!-- Message Notification (envelope screen for later) -->
+        <!-- ✅ Navigate back to list after confirmation -->
+        <action
+            android:id="@+id/action_sentConfirmationFragment_to_lettersListFragment"
+            app:destination="@id/lettersListFragment" />
+    </fragment>
+
+    <!-- Sent Letters -->
     <fragment
-        android:id="@+id/messageNotificationFragment"
-        android:name="com.example.futurescript.MessageNotificationFragment"
-        android:label="Message Notification"
-        tools:layout="@layout/fragment_message_notification" />
-
+        android:id="@+id/sentLettersFragment"
+        android:name="com.example.futurescript.ui.inbox.SentLettersFragment"
+        android:label="Sent Letters"
+        tools:layout="@layout/fragment_sent_letters" />
 </navigation>

@@ -15,20 +15,23 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
+    // ✅ Correct: injects the Application context into Room
     @Provides
     @Singleton
-    fun provideDatabase(
-        @ApplicationContext context: Context
-    ): AppDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "letter_database.db"
-        ).build()
+            "future_script_db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
+    @Singleton
     fun provideLetterDao(database: AppDatabase): LetterDao {
         return database.letterDao()
     }
 }
+

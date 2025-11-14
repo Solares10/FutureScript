@@ -15,11 +15,14 @@ class ComposeViewModel @Inject constructor(
 
     fun insert(message: String, dateDelivered: Long) {
         viewModelScope.launch {
-            val l = Letter(
+            val now = System.currentTimeMillis()
+            val letter = Letter(
                 message = message,
-                deliverAtEpochSec = dateDelivered,
+                createdAtEpochSec = now,
+                deliverAtEpochSec = now + 86400000L, // e.g. 1 day later, adjust as needed
+                delivered = false
             )
-            repo.insertLocal(l)
+
         }
     }
 }

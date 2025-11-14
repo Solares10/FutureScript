@@ -1,41 +1,72 @@
 package com.example.futurescript.workers
 
-import androidx.work.CoroutineWorker
-import androidx.work.WorkerParameters
-import com.example.futurescript.data.database.AppDatabase
-import com.example.futurescript.util.notifyLetter
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import java.time.Duration
-import java.time.Instant
+import androidx.core.app.NotificationCompat
+import androidx.hilt.work.HiltWorker
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import com.example.futurescript.R
+import com.example.futurescript.data.repository.LetterRepository
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class DeliverLetterWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, params) {
-    override suspend fun doWork(): Result {
-        val id = inputData.getLong("letter_id", -1L)
-        val message = inputData.getString("message") ?: return Result.failure()
-        if (id == -1L) return Result.failure()
+@HiltWorker
+class DeliverLetterWorker @AssistedInject constructor(
+    @Assisted private val appContext: Context,
+    @Assisted workerParams: WorkerParameters,
+    private val repo: LetterRepository
+) : CoroutineWorker(appContext, workerParams) {
 
-        notifyLetter(applicationContext, id.toInt(), message)
-        AppDatabase.get(applicationContext).letterDao().markDelivered(id)
-        return Result.success()
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
+        try {
+            // ✅ Correct way to retrieve input data from WorkManager
+            val letterId = inputData.getLong("letterId", -1L)
+            if (letterId == -1L) {
+                return@withContext Result.failure()
+            }
+
+            // ✅ Mark the letter as delivered in the database
+            repo.markDelivered(letterId)
+
+            // ✅ Optional: show user notification when letter is delivered
+            showDeliveryNotification(letterId)
+
+            Result.success()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Result.retry()
+        }
     }
-}
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun scheduleDelivery(context: Context, letterId: Long, deliverAtEpochSec: Long, message: String) {
-    val delay = Duration.between(Instant.now(), Instant.ofEpochSecond(deliverAtEpochSec))
-        .coerceAtLeast(Duration.ofSeconds(1))
-    val data = Data.Builder()
-        .putLong("letter_id", letterId)
-        .putString("message", message)
-        .build()
-    val req = OneTimeWorkRequestBuilder<DeliverLetterWorker>()
-        .setInputData(data)
-        .setInitialDelay(delay)
-        .build()
-    WorkManager.getInstance(context).enqueue(req)
+    private fun showDeliveryNotification(letterId: Long) {
+        val notificationManager =
+            appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = "letter_delivery_channel"
+
+        // Create channel if needed
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                channelId,
+                "Letter Delivery",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        // Build the notification
+        val notification = NotificationCompat.Builder(appContext, channelId)
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle("Letter Delivered 🎉")
+            .setContentText("Your scheduled letter (ID: $letterId) has been delivered.")
+            .setAutoCancel(true)
+            .build()
+
+        // Show it
+        notificationManager.notify(letterId.toInt(), notification)
+    }
 }
