@@ -63,7 +63,7 @@ git clone https://github.com/YOUR_USERNAME/FutureScript-Android.git
 - **Teamlead**: Michelle Solares
 - **UI/UX Design**: Kripa Sigdel
 - **Frontend Developer**: Ruiyang (Wendy) 
-- **Backend Developer**: thy-hoang 
+- **Backend Developer**: Thy Hoang 
 - **Integration and Support** : Ashley Mapes
 - **Quality Assurance**: Alison Velasquez-Cruz, Mathew Galvez
 
